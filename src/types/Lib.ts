@@ -40,7 +40,7 @@ export class Lib extends Type {
 	}
 
 	override fromProps(props: Record<string, object>): void {
-		super.fromProps(props)
+		super.fromProps(props, this)
 
 		if (props.org) {
 			const org = props.org as Record<string, object>
@@ -68,5 +68,32 @@ export class Lib extends Type {
 		lib.fromProps(props)
 
 		return lib
+	}
+
+	getType(name: string): Type | undefined {
+		const [lib, type] = name.split('::')
+
+		if (lib && type) {
+			if (lib !== this.name) {
+				return undefined
+			}
+			return this.slots[type]
+		} else {
+			return this.slots[name]
+		}
+	}
+
+	get types(): Type[] {
+		return Object.values(this.slots)
+	}
+
+	override get markers(): string[] {
+		const res = new Set<string>()
+
+		Object.values(this.slots).forEach((type) => {
+			type.markers.forEach((m) => res.add(m))
+		})
+
+		return [...res]
 	}
 }

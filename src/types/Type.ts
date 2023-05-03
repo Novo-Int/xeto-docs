@@ -1,3 +1,5 @@
+import type { Lib } from './Lib'
+
 /**
  * The basic type definition for Xeto
  */
@@ -37,14 +39,20 @@ export class Type {
 	 */
 	slots: { [name: string]: Type }
 
-	constructor(name?: string, base?: string) {
+	/**
+	 * The library for this type
+	 */
+	lib?: Lib
+
+	constructor(name?: string, base?: string, lib?: Lib) {
 		this.type = name
 		this.base = base
+		this.lib = lib
 
 		this.slots = {}
 	}
 
-	fromProps(props: Record<string, object>) {
+	fromProps(props: Record<string, object>, lib?: Lib) {
 		this.of = getOptionalString('of', props)
 
 		this.doc = getOptionalString('doc', props)
@@ -53,20 +61,90 @@ export class Type {
 		this.isSealed = getOptionalString('sealed', props) === 'marker'
 
 		const slotsData = props.slots as Record<string, object>
-
 		if (slotsData) {
-			this.slots = makeSlots(slotsData)
+			this.slots = makeSlots(slotsData, lib == (this as unknown), lib)
 		}
 	}
 
-	static make(props: Record<string, object>, defaultName?: string): Type {
-		const name = getOptionalString('type', props)
+	static make(
+		props: Record<string, object>,
+		defaultName?: string,
+		lib?: Lib
+	): Type {
+		const name = defaultName ?? getOptionalString('type', props)
 		const base = getOptionalString('base', props)
 
-		const type = new Type(name, base)
-		type.fromProps(props)
+		const type = new Type(name, base, lib)
+		type.fromProps(props, lib)
 
 		return type
+	}
+
+	get libName(): string {
+		return this.type?.split('::')?.[0] ?? ''
+	}
+
+	get typename(): string {
+		return this.type?.split('::')?.[1] ?? ''
+	}
+
+	get markers(): string[] {
+		const res = [] as string[]
+		Object.entries(this.slots).forEach(([name, type]) => {
+			if (type.type === 'sys::Marker') {
+				res.push(name)
+			}
+		})
+
+		return res
+	}
+
+	get superType(): Type | undefined {
+		const base = this.base
+
+		return base ? this.lib?.getType(base) : undefined
+	}
+
+	get allSuperTypes(): Type[] {
+		const list = new Map<string, Type>()
+
+		let st = this.superType
+
+		while (st) {
+			if (st.type) list.set(st.type, st)
+			st = st.superType
+		}
+
+		return [...list.values()]
+	}
+
+	get subtypes(): Type[] {
+		const list = new Map<string, Type>()
+
+		this.lib?.types.forEach((type) => {
+			if (type.type && type.base === this.type) {
+				list.set(type.type, type)
+			}
+		})
+
+		return [...list.values()]
+	}
+
+	get allSubtypes(): Type[] {
+		const list = new Map<string, Type>()
+
+		const set = (type: Type) => {
+			list.set(type.type ?? '', type)
+			type.subtypes.forEach((st) => {
+				set(st)
+			})
+		}
+
+		this.subtypes.forEach((st) => {
+			set(st)
+		})
+
+		return [...list.values()]
 	}
 }
 
@@ -98,12 +176,27 @@ export function getOptionalString(
 	return val
 }
 
-function makeSlots(slotsData: Record<string, object>): {
+function makeSlots(
+	slotsData: Record<string, object>,
+	libSlot: boolean,
+	lib?: Lib
+): {
 	[name: string]: Type
 } {
 	return Object.entries(slotsData).reduce(
 		(slots, [name, props]) => {
-			slots[name] = Type.make(props as Record<string, object>)
+			if (libSlot) {
+				slots[name] = Type.make(
+					props as Record<string, object>,
+					`${lib?.name}::${name}`,
+					lib
+				)
+			} else {
+				slots[name] =
+					lib?.slots[name] ??
+					Type.make(props as Record<string, object>)
+			}
+
 			return slots
 		},
 		{} as {

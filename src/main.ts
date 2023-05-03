@@ -7,7 +7,23 @@ async function main() {
 
 	const db = LibsRegistry.make(props)
 
-	console.log(db.libs)
+	const lib = db.libs.get('ph')
+	const type = lib?.getType('Ahu')
+
+	console.log(type?.libName)
+	console.log(type?.markers)
+	//console.log(lib?.markers)
+
+	console.log(type?.allSuperTypes)
+
+	console.log(type?.subtypes)
+
+	{
+		const type = lib?.getType('AirHandlingEquip')
+		console.log(type?.allSubtypes)
+	}
+
+	//console.log(db.libs.get('ph')?.getType('Well'))
 }
 
 main()

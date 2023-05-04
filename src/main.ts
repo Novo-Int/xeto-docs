@@ -1,4 +1,6 @@
 import fs from 'fs/promises'
+import Eta from 'eta'
+
 import { LibsRegistry } from './loader'
 
 async function main() {
@@ -7,23 +9,27 @@ async function main() {
 
 	const db = LibsRegistry.make(props)
 
-	const lib = db.libs.get('ph')
-	const type = lib?.getType('Ahu')
+	const libTemplate = await fs.readFile('./templates/lib.mdx', {
+		encoding: 'utf-8',
+	})
 
-	console.log(type?.libName)
-	console.log(type?.markers)
-	//console.log(lib?.markers)
+	const typeTemplate = await fs.readFile('./templates/type.mdx', {
+		encoding: 'utf-8',
+	})
 
-	console.log(type?.allSuperTypes)
+	for (const [libName, lib] of db.libs) {
+		const libPage = Eta.render(libTemplate, lib ?? {})
+		await fs.mkdir(`./pages/${libName}`, { recursive: true })
+		await fs.writeFile(`./pages/${libName}/index.mdx`, libPage)
 
-	console.log(type?.subtypes)
-
-	{
-		const type = lib?.getType('AirHandlingEquip')
-		console.log(type?.allSubtypes)
+		for (const type of lib.types) {
+			const typePage = Eta.render(typeTemplate, type ?? {})
+			await fs.writeFile(
+				`./pages/${libName}/${type.typename}.mdx`,
+				typePage
+			)
+		}
 	}
-
-	//console.log(db.libs.get('ph')?.getType('Well'))
 }
 
 main()

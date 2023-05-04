@@ -1,0 +1,33 @@
+# CurPoint
+Point with support to report a &quot;real-time&quot; current value.  By real-time
+we typically mean freshness within the order of a few seconds or at
+most a few minutes.  For systems with direct I/O the current value is
+typically driven by the I/O scan rate. For overlay systems which acquire
+data via a protocol such as BACnet or Modbus then the current value
+is typically refreshed using polling or subscription over a network.
+Also see `docHaystack::Points#cur` chapter.
+## Markers
+- point
+- cur
+
+## Slots
+
+### pointType: `Marker`
+
+### equipsType: `Query`
+
+### curType: `Marker`
+
+
+## Super Types
+### Point
+Data point such as a sensor or actuator.
+See `docHaystack::Points` chapter. 
+[More...](./Point)
+
+### Entity
+Top-level dicts with a unique identifier.
+See `docHaystack::Ontology#entities` chapter. 
+[More...](./Entity)
+
+

@@ -1,0 +1,49 @@
+# VrfSystem
+Variable refigerant flow system.  The system contains the indoor
+units, outdoor units, and branch selectors.  See `docHaystack::VRF#types`
+chapter.
+## Markers
+- system
+- refrig
+- vrf
+
+## Slots
+
+### systemType: `Marker`
+
+### refrigType: `Marker`
+
+### vrfType: `Marker`
+
+
+## Super Types
+### RefrigSystem
+Refrigerant distribution to fulfill all or parts of a refrigeration cycle. 
+[More...](./RefrigSystem)
+
+### System
+Grouping of related equipment dedicated to a single application.
+See `docHaystack::Systems` chapter. 
+[More...](./System)
+
+### Entity
+Top-level dicts with a unique identifier.
+See `docHaystack::Ontology#entities` chapter. 
+[More...](./Entity)
+
+
+## Subtypes
+### VrfCoolingOnlySystem
+Cooling only VRF system can only cool; heating is not available.
+See `docHaystack::VRF#types` chapter. 
+[More...](./VrfCoolingOnlySystem)
+### VrfHeatPumpSystem
+Heat pump VRF system can either heat, or cool, but not at the same time.
+See `docHaystack::VRF#types` chapter. 
+[More...](./VrfHeatPumpSystem)
+### VrfHeatRecoverySystem
+Heat recovery VRF system can operate cooling and heating by each indoor unit
+independently, at the same time. Heat recovery VRF systems have branch selectors
+to control how much, and which (hot gas or subcooled liquid) refrigerant
+goes to each indoor unit.  See `docHaystack::VRF#types` chapter. 
+[More...](./VrfHeatRecoverySystem)

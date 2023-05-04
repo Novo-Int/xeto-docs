@@ -1,0 +1,51 @@
+# VrfEquip
+Equipment used in VRF systems.  See `docHaystack::VRF#equip` chapter.
+## Markers
+- equip
+- vrf
+
+## Slots
+
+### equipType: `Marker`
+
+### pointsType: `Query`
+
+### vrfType: `Marker`
+
+
+## Super Types
+### Equip
+Equipment asset.
+See `docHaystack::Equips` chapter. 
+[More...](./Equip)
+
+### Entity
+Top-level dicts with a unique identifier.
+See `docHaystack::Ontology#entities` chapter. 
+[More...](./Entity)
+
+
+## Subtypes
+### BranchSelector
+Branch selector used for heat recovery in a VRF system.  These are
+control devices directing the liquid refrigerant or gas refrigerant
+to zones requiring cooling or heating. See `docHaystack::VRF#branchSelector`
+chapter. 
+[More...](./BranchSelector)
+### VrfIndoorUnit
+Indoor unit in a VRF system.  Indoor units operate to satisfy a heating
+or cooling load. See `docHaystack::VRF#indoorUnits` chapter. 
+[More...](./VrfIndoorUnit)
+### VrfIndoorUnitFcu
+Indoor unit fan coil unit in a VRF system.  This includes but is not
+limited to: ducted-type and non-ducted types such as wall-mount,
+floor-mount, ceiling-mount and cassettes.  Indoor unit fan coils operate
+to satisfy a heating  or cooling load in a zone based on a zone thermostat
+temperature set point. 
+[More...](./VrfIndoorUnitFcu)
+### VrfOutdoorUnit
+Outdoor unit with one or more compressors in a VRF system. As each indoor
+unit sends a demand to the outdoor unit, outdoor unit delivers the amount
+of refrigerant needed to meet the individual requirements of each indoor
+unit.  See `docHaystack::VRF#outdoorUnits` chapter. 
+[More...](./VrfOutdoorUnit)

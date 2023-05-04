@@ -1,0 +1,41 @@
+# EvseEquip
+Equipment that supports the delivery of electricity to charging inlets
+located on EVs.  See `docHaystack::EVSE` chapter.
+## Markers
+- equip
+- evse
+
+## Slots
+
+### equipType: `Marker`
+
+### pointsType: `Query`
+
+### evseType: `Marker`
+
+
+## Super Types
+### Equip
+Equipment asset.
+See `docHaystack::Equips` chapter. 
+[More...](./Equip)
+
+### Entity
+Top-level dicts with a unique identifier.
+See `docHaystack::Ontology#entities` chapter. 
+[More...](./Entity)
+
+
+## Subtypes
+### EvseAssembly
+Equipment that delivers electricity via EVSE ports to charging inlets
+located on EVs.  See `docHaystack::EVSE#assembly` chapter. 
+[More...](./EvseAssembly)
+### EvseCable
+Models the electrical connection between an `evse-port` and an EV charging
+inlet.  See `docHaystack::EVSE#cable` chapter. 
+[More...](./EvseCable)
+### EvsePort
+An EVSE port delivers electricity to a single EV charging inlet at a
+time.  See `docHaystack::EVSE#port` chapter. 
+[More...](./EvsePort)

@@ -1,0 +1,40 @@
+# AirSystem
+System for moving air to maintain indoor thermal comfort and/or air quality.
+## Markers
+- system
+- air
+
+## Slots
+
+### systemType: `Marker`
+
+### airType: `Marker`
+
+
+## Super Types
+### System
+Grouping of related equipment dedicated to a single application.
+See `docHaystack::Systems` chapter. 
+[More...](./System)
+
+### Entity
+Top-level dicts with a unique identifier.
+See `docHaystack::Ontology#entities` chapter. 
+[More...](./Entity)
+
+
+## Subtypes
+### AirConditioningSystem
+System for air treatment to control its temperature, humidity, cleanliness,
+and distribution to meet the requirements of a conditioned space. 
+[More...](./AirConditioningSystem)
+### AirExhaustSystem
+System consisting of one or more fans that remove air from the building.
+Exhaust systems allow outdoor air to enter by ventilation inlets or normal
+leakage paths sthrough the building envelope. 
+[More...](./AirExhaustSystem)
+### AirVentilationSystem
+System that supplies or removes air by natural or mechanical means to or
+from any space in order to provide outdoor air to the space. Such air may or
+may not have been conditioned. 
+[More...](./AirVentilationSystem)

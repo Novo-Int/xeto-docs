@@ -1,0 +1,62 @@
+# AirHandlingEquip
+HVAC equipment that conditions and delivers air via one or more fans.
+Conditioning of air includes heating, cooling, humidification,
+dehumidification, and ventilation. See `docHaystack::AHUs` chapter.
+## Markers
+- equip
+
+## Slots
+
+### equipType: `Marker`
+
+### pointsType: `Query`
+
+
+## Super Types
+### Equip
+Equipment asset.
+See `docHaystack::Equips` chapter. 
+[More...](./Equip)
+
+### Entity
+Top-level dicts with a unique identifier.
+See `docHaystack::Ontology#entities` chapter. 
+[More...](./Entity)
+
+
+## Subtypes
+### Ahu
+Air Handling Unit: An enclosure with a fan that delivers air to a space
+via ductwork and performs one or more of the functions of cleaning,
+heating, cooling, humidifying, dehumidifying, ventilating or circulating
+the air.  See `docHaystack::AHUs` chapter. 
+[More...](./Ahu)
+### Doas
+Dedicated Outside Air System: An AHU that brings in 100% outside air and
+no recirculated air in order to provide ventilation to spaces.
+See `docHaystack::AHUs` chapter. 
+[More...](./Doas)
+### Mau
+Makeup Air Unit: A DOAS that provides make-up air for a separate, dedicated
+exhaust system. That is, this equip does not contain an exhaust air section.
+See `docHaystack::AHUs` chapter. 
+[More...](./Mau)
+### Rtu
+Roof Top Unit: A unitary AHU that is weatherized for outdoor use.
+See `docHaystack::AHUs` chapter. 
+[More...](./Rtu)
+### Fcu
+Fan Coil Unit: A unitary, factory-made enclosure with a fan and coil
+that recirculates air in a space and performs one or more of the
+functions of cleaning, heating, cooling, humidifying, dehumidifying,
+or ventilating the air. Unit heaters are examples of FCUs.
+See `docHaystack::AHUs` chapter. 
+[More...](./Fcu)
+### Crac
+Computer Room Air Conditioner: An FCU designed to condition a computer
+room.  See `docHaystack::AHUs` and `docHaystack::DataCenters` chapters. 
+[More...](./Crac)
+### UnitVent
+Unit Ventilator: An FCU that has direct access to outside air to provide
+the space with ventilation.  See `docHaystack::AHUs` chapter. 
+[More...](./UnitVent)

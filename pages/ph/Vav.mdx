@@ -1,0 +1,35 @@
+# Vav
+Variable air volume terminal unit.  VAV systems use a constant air
+temperature with a variable air flow rate.  See `docHaystack::VAVs` chapter.
+## Markers
+- equip
+- vav
+
+## Slots
+
+### equipType: `Marker`
+
+### pointsType: `Query`
+
+### vavType: `Marker`
+
+
+## Super Types
+### AirTerminalUnit
+Equipment in air distribution systems which terminate at the space.
+Terminal units receive air from `airHandlingEquip` which have the
+primarily responsibility to condition air.  Terminal units are primarily
+responsible for delivery of air to the space and tempering the temperature. 
+[More...](./AirTerminalUnit)
+
+### Equip
+Equipment asset.
+See `docHaystack::Equips` chapter. 
+[More...](./Equip)
+
+### Entity
+Top-level dicts with a unique identifier.
+See `docHaystack::Ontology#entities` chapter. 
+[More...](./Entity)
+
+

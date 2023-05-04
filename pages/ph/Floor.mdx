@@ -1,0 +1,39 @@
+# Floor
+Storey of a building.  See `docHaystack::Spaces#floors` chapter.
+## Markers
+- space
+- floor
+
+## Slots
+
+### spaceType: `Marker`
+
+### floorType: `Marker`
+
+
+## Super Types
+### Space
+Space is a three-dimensional volume in the built environment.
+See `docHaystack::Spaces` chapter. 
+[More...](./Space)
+
+### Entity
+Top-level dicts with a unique identifier.
+See `docHaystack::Ontology#entities` chapter. 
+[More...](./Entity)
+
+
+## Subtypes
+### GroundFloor
+Floor at ground level.  In North America this is typically called
+the first floor, but in Europe its often labeled as floor zero.
+If `floorNum` is defined, then it must be set to zero. 
+[More...](./GroundFloor)
+### RoofFloor
+The roof floor is the topmost level of a building.  It is often
+where HVAC equipment is located such as rooftop AHUs. 
+[More...](./RoofFloor)
+### SubterraneanFloor
+Floor below ground level.  Subterranean floors are also known as
+basements, lower levels, or cellars. 
+[More...](./SubterraneanFloor)

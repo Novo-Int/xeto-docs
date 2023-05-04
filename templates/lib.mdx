@@ -1,0 +1,19 @@
+# <%= it.name %>
+
+<%= it.doc %>
+
+## Version
+<%= it.version %>
+
+## Depends
+<% it.depends.forEach((type) => { %>
+- [<%= type.name %>](./<%= type.name %>)
+
+<% }) %>
+
+## Types
+
+<% it.types.forEach((type) => { %>
+- [<%= type.typename %>](./<%= it.name %>/<%= type.typename %>)
+
+<% }) %>

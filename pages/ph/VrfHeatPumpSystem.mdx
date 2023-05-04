@@ -1,0 +1,42 @@
+# VrfHeatPumpSystem
+Heat pump VRF system can either heat, or cool, but not at the same time.
+See `docHaystack::VRF#types` chapter.
+## Markers
+- system
+- refrig
+- vrf
+- heatPump
+
+## Slots
+
+### systemType: `Marker`
+
+### refrigType: `Marker`
+
+### vrfType: `Marker`
+
+### heatPumpType: `Marker`
+
+
+## Super Types
+### VrfSystem
+Variable refigerant flow system.  The system contains the indoor
+units, outdoor units, and branch selectors.  See `docHaystack::VRF#types`
+chapter. 
+[More...](./VrfSystem)
+
+### RefrigSystem
+Refrigerant distribution to fulfill all or parts of a refrigeration cycle. 
+[More...](./RefrigSystem)
+
+### System
+Grouping of related equipment dedicated to a single application.
+See `docHaystack::Systems` chapter. 
+[More...](./System)
+
+### Entity
+Top-level dicts with a unique identifier.
+See `docHaystack::Ontology#entities` chapter. 
+[More...](./Entity)
+
+

@@ -1,0 +1,42 @@
+# <%= it.typename %>
+
+<%= it.doc %>
+
+<% if (it.markers.length) { %>
+## Markers
+<% it.markers.forEach((name) => { %>
+- <%= name %>
+
+<% }) %>
+<% } %>
+
+<% if (Object.keys(it.slots).length) { %>
+## Slots
+
+<% Object.entries(it.slots).forEach(([name, type]) => { %>
+### <%= name %>
+Type: `<%= type.typename %>`
+
+<% }) %>
+<% } %>
+
+<% if (it.allSuperTypes.length) { %>
+## Super Types
+<% it.allSuperTypes.forEach((type) => { %>
+### <%= type.typename %>
+
+<%= type.doc %> 
+[More...](./<%= type.typename %>)
+
+<% }) %>
+<% } %>
+
+<% if (it.allSubtypes.length) { %>
+## Subtypes
+<% it.allSubtypes.forEach((type) => { %>
+### <%= type.typename %>
+
+<%= type.doc %> 
+[More...](./<%= type.typename %>)
+<% }) %>
+<% } %>

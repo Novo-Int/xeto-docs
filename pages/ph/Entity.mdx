@@ -1,0 +1,548 @@
+# Entity
+Top-level dicts with a unique identifier.
+See `docHaystack::Ontology#entities` chapter.
+
+
+
+## Subtypes
+### Device
+Microprocessor based hardware device.  This is the general term for
+all computers, mobile phones, controllers, and I/O modules.
+See `docHaystack::Devices#networks` chapter. 
+[More...](./Device)
+### Computer
+General purpose computer. 
+[More...](./Computer)
+### Laptop
+Portable laptop computer. 
+[More...](./Laptop)
+### ServerComputer
+General purpose computer used as a server.  Typically servers are rack mounted. 
+[More...](./ServerComputer)
+### Controller
+Microprocessor based device used in a control system.  Controllers
+interact with the physical world through direct I/O to sensors and
+actuators or via network [protocols]`protocol`. 
+[More...](./Controller)
+### NetworkingDevice
+Microprocessor device used to establish networks. 
+[More...](./NetworkingDevice)
+### NetworkingRouter
+Networking device used to route data between different networks. 
+[More...](./NetworkingRouter)
+### NetworkingSwitch
+Networking device used to connect devices on the same network. 
+[More...](./NetworkingSwitch)
+### Phone
+Telephone used for voice telecommunication. 
+[More...](./Phone)
+### MobilePhone
+Cellular phone providing telecommunication over radio links. 
+[More...](./MobilePhone)
+### Tablet
+Mobile device with touch screen for user input. 
+[More...](./Tablet)
+### Equip
+Equipment asset.
+See `docHaystack::Equips` chapter. 
+[More...](./Equip)
+### Actuator
+Equipment to move or control a mechanism.  Actuators may be manually
+operated or automated via a control system to convert an energy source
+into mechanical energy.  Typically the energy source is electricity,
+hydraulics, or pneumatics. 
+[More...](./Actuator)
+### DamperActuator
+Actuator to regulate the flow of air. 
+[More...](./DamperActuator)
+### ValveActuator
+Actuator to regulate the flow of fluid. 
+[More...](./ValveActuator)
+### AirHandlingEquip
+HVAC equipment that conditions and delivers air via one or more fans.
+Conditioning of air includes heating, cooling, humidification,
+dehumidification, and ventilation. See `docHaystack::AHUs` chapter. 
+[More...](./AirHandlingEquip)
+### Ahu
+Air Handling Unit: An enclosure with a fan that delivers air to a space
+via ductwork and performs one or more of the functions of cleaning,
+heating, cooling, humidifying, dehumidifying, ventilating or circulating
+the air.  See `docHaystack::AHUs` chapter. 
+[More...](./Ahu)
+### Doas
+Dedicated Outside Air System: An AHU that brings in 100% outside air and
+no recirculated air in order to provide ventilation to spaces.
+See `docHaystack::AHUs` chapter. 
+[More...](./Doas)
+### Mau
+Makeup Air Unit: A DOAS that provides make-up air for a separate, dedicated
+exhaust system. That is, this equip does not contain an exhaust air section.
+See `docHaystack::AHUs` chapter. 
+[More...](./Mau)
+### Rtu
+Roof Top Unit: A unitary AHU that is weatherized for outdoor use.
+See `docHaystack::AHUs` chapter. 
+[More...](./Rtu)
+### Fcu
+Fan Coil Unit: A unitary, factory-made enclosure with a fan and coil
+that recirculates air in a space and performs one or more of the
+functions of cleaning, heating, cooling, humidifying, dehumidifying,
+or ventilating the air. Unit heaters are examples of FCUs.
+See `docHaystack::AHUs` chapter. 
+[More...](./Fcu)
+### Crac
+Computer Room Air Conditioner: An FCU designed to condition a computer
+room.  See `docHaystack::AHUs` and `docHaystack::DataCenters` chapters. 
+[More...](./Crac)
+### UnitVent
+Unit Ventilator: An FCU that has direct access to outside air to provide
+the space with ventilation.  See `docHaystack::AHUs` chapter. 
+[More...](./UnitVent)
+### AirTerminalUnit
+Equipment in air distribution systems which terminate at the space.
+Terminal units receive air from `airHandlingEquip` which have the
+primarily responsibility to condition air.  Terminal units are primarily
+responsible for delivery of air to the space and tempering the temperature. 
+[More...](./AirTerminalUnit)
+### Cav
+Constant air volume terminal unit.  CAV systems use a constant
+air flow rate with a variable air temperature. 
+[More...](./Cav)
+### Vav
+Variable air volume terminal unit.  VAV systems use a constant air
+temperature with a variable air flow rate.  See `docHaystack::VAVs` chapter. 
+[More...](./Vav)
+### Assembly
+A collection of manufactured parts or subassemblies. 
+[More...](./Assembly)
+### Ates
+Aquifer Thermal Energy Storage system.
+See `docHaystack::ATES` chapter. 
+[More...](./Ates)
+### Battery
+Equipment used to store electric energy 
+[More...](./Battery)
+### Boiler
+Equipment to generate hot water or steam for heating 
+[More...](./Boiler)
+### HotWaterBoiler
+Boiler which outputs hot water 
+[More...](./HotWaterBoiler)
+### SteamBoiler
+Boiler which outputs steam 
+[More...](./SteamBoiler)
+### Cable
+An assembly of one or more insulated conductors. 
+[More...](./Cable)
+### Chiller
+Equipment to remove heat from a liquid.  Chillers typically use a vapor
+compression or an absorption refrigeration cycle. 
+[More...](./Chiller)
+### Circuit
+Electrical circuit and its associated components such as breakers.
+See `docHaystack::ElecPanels#circuits` chapter. 
+[More...](./Circuit)
+### Conduit
+Duct, pipe, or cable to convey a substance or phenomenon 
+[More...](./Conduit)
+### Duct
+Conduit used to convey air for HVAC 
+[More...](./Duct)
+### Pipe
+Conduit used to convey a fluid 
+[More...](./Pipe)
+### Wire
+Cabling used to convey electricity or data 
+[More...](./Wire)
+### CoolingTower
+Equipment to transfer waste heat into the atmosphere 
+[More...](./CoolingTower)
+### EvseEquip
+Equipment that supports the delivery of electricity to charging inlets
+located on EVs.  See `docHaystack::EVSE` chapter. 
+[More...](./EvseEquip)
+### EvseAssembly
+Equipment that delivers electricity via EVSE ports to charging inlets
+located on EVs.  See `docHaystack::EVSE#assembly` chapter. 
+[More...](./EvseAssembly)
+### EvseCable
+Models the electrical connection between an `evse-port` and an EV charging
+inlet.  See `docHaystack::EVSE#cable` chapter. 
+[More...](./EvseCable)
+### EvsePort
+An EVSE port delivers electricity to a single EV charging inlet at a
+time.  See `docHaystack::EVSE#port` chapter. 
+[More...](./EvsePort)
+### FlowInverter
+System to change direction of substance flow 
+[More...](./FlowInverter)
+### FumeHood
+Ventilation equipment to limit exposure to hazardous fumes. 
+[More...](./FumeHood)
+### HeatExchanger
+Equipment to transfer heat between two working fluids. 
+[More...](./HeatExchanger)
+### Coil
+Heat exchanger used to heat or cool air.  Coils are sub-components
+of HVAC equipment such as `airHandlingEquip`. 
+[More...](./Coil)
+### CoolingCoil
+Coil used to cool air. 
+[More...](./CoolingCoil)
+### HeatingCoil
+Coil used to heat air. 
+[More...](./HeatingCoil)
+### HumidifierEquip
+Equipment which adds moisture to air to increase humidity 
+[More...](./HumidifierEquip)
+### Luminaire
+Light fixture using electricity to provide illumination 
+[More...](./Luminaire)
+### Meter
+Equipment to meter a substance or phenomenon.
+See `docHaystack::Meters` chapter. 
+[More...](./Meter)
+### ElecMeter
+Electricity meter 
+[More...](./ElecMeter)
+### AcElecMeter
+AC Electricity meter.
+See `docHaystack::Meters` chapter. 
+[More...](./AcElecMeter)
+### DcElecMeter
+DC Electricity meter.
+See `docHaystack::Meters` chapter. 
+[More...](./DcElecMeter)
+### FlowMeter
+Meter to measure flow rate and total volume of fluid.
+See `docHaystack::Meters` chapter. 
+[More...](./FlowMeter)
+### Motor
+Equipment that converts electrical energy into mechanical energy.
+See `docHaystack::Motors` chapter. 
+[More...](./Motor)
+### FanMotor
+Motor used with a fan to create air flow.
+See `docHaystack::Motors` chapter. 
+[More...](./FanMotor)
+### PumpMotor
+Motor used with a pump to move fluid.
+See `docHaystack::Motors` chapter. 
+[More...](./PumpMotor)
+### Panel
+Enclosure for electrical and control equipment.  Panels may be
+used to isolate electrical connections and provide environmental
+protection. 
+[More...](./Panel)
+### ControlsPanel
+Panel housing controllers and networking gear 
+[More...](./ControlsPanel)
+### ElecPanel
+Physical housing for electrical circuits, fuses, and breakers.
+See `docHaystack::ElecPanels#panels` chapter. 
+[More...](./ElecPanel)
+### Plant
+Central plant used to generate a substance for a process.
+See `docHaystack::Plants`. 
+[More...](./Plant)
+### ChilledWaterPlant
+Plant used to generate chilled water for cooling.
+See `docHaystack::Plants`. 
+[More...](./ChilledWaterPlant)
+### HotWaterPlant
+Plant used to generate hot water for heating.
+See `docHaystack::Plants`. 
+[More...](./HotWaterPlant)
+### SteamPlant
+Plant used to generate steam for heating.
+See `docHaystack::Plants`. 
+[More...](./SteamPlant)
+### VrfRefrigPlant
+Group of outdoor units in a VRF system.  See `docHaystack::VRF#refrigPlant`. 
+[More...](./VrfRefrigPlant)
+### Rack
+Enclosure or chassis used to mount computer and networking gear.
+Devices are mounted to rails of a standard width, typically 19 or 23
+inches.  Height is measured in *rack units* where one 1U is 1.75 inches.
+A full rack has a height of 42U.
+See `docHaystack::DataCenters#racks` chapter. 
+[More...](./Rack)
+### RadiantEquip
+HVAC equipment that conditions a space without forced air. 
+[More...](./RadiantEquip)
+### ChilledBeam
+Conditions a space using a heat exchanger integrated into the ceiling 
+[More...](./ChilledBeam)
+### RadiantFloor
+Heats a space using pipes or cables embedded beneath floor. 
+[More...](./RadiantFloor)
+### Radiator
+Heats a space using exposed pipes or coils.  Hot water and steam
+radiators are often cast iron and installed directly in the space
+or along the baseboard.  Electric radiators are typically installed
+on the baseboard. 
+[More...](./Radiator)
+### Tank
+Tank used to store a substance for temporary holding 
+[More...](./Tank)
+### Thermostat
+Senses and controls temperature of space in HVAC system.  Thermostats
+may provide an interface for setpoint control. 
+[More...](./Thermostat)
+### Ups
+Uninterruptible power supply 
+[More...](./Ups)
+### VerticalTransport
+Equipment to move humans and materials 
+[More...](./VerticalTransport)
+### Elevator
+Enclosure used to move people between floors. 
+[More...](./Elevator)
+### Escalator
+Moving staircase used to move people between floors. 
+[More...](./Escalator)
+### MovingWalkway
+Conveyor to move people across a horizontal or inclined plane. 
+[More...](./MovingWalkway)
+### VrfEquip
+Equipment used in VRF systems.  See `docHaystack::VRF#equip` chapter. 
+[More...](./VrfEquip)
+### BranchSelector
+Branch selector used for heat recovery in a VRF system.  These are
+control devices directing the liquid refrigerant or gas refrigerant
+to zones requiring cooling or heating. See `docHaystack::VRF#branchSelector`
+chapter. 
+[More...](./BranchSelector)
+### VrfIndoorUnit
+Indoor unit in a VRF system.  Indoor units operate to satisfy a heating
+or cooling load. See `docHaystack::VRF#indoorUnits` chapter. 
+[More...](./VrfIndoorUnit)
+### VrfIndoorUnitFcu
+Indoor unit fan coil unit in a VRF system.  This includes but is not
+limited to: ducted-type and non-ducted types such as wall-mount,
+floor-mount, ceiling-mount and cassettes.  Indoor unit fan coils operate
+to satisfy a heating  or cooling load in a zone based on a zone thermostat
+temperature set point. 
+[More...](./VrfIndoorUnitFcu)
+### VrfOutdoorUnit
+Outdoor unit with one or more compressors in a VRF system. As each indoor
+unit sends a demand to the outdoor unit, outdoor unit delivers the amount
+of refrigerant needed to meet the individual requirements of each indoor
+unit.  See `docHaystack::VRF#outdoorUnits` chapter. 
+[More...](./VrfOutdoorUnit)
+### Well
+A well is a source of groundwater and potentially thermal energy.  When
+used within an [ATES]`docHaystack::ATES` system, the well facilitates thermal
+energy exchange with the ground warm and cool water sources. In this case, a
+well can be either a closed system that transports water through pipes in the
+ground, or an open system that pumps up and returns ground water. 
+[More...](./Well)
+### Network
+Logical communications network between two or more devices.
+See `docHaystack::Devices#networks` chapter. 
+[More...](./Network)
+### Point
+Data point such as a sensor or actuator.
+See `docHaystack::Points` chapter. 
+[More...](./Point)
+### CurPoint
+Point with support to report a &quot;real-time&quot; current value.  By real-time
+we typically mean freshness within the order of a few seconds or at
+most a few minutes.  For systems with direct I/O the current value is
+typically driven by the I/O scan rate. For overlay systems which acquire
+data via a protocol such as BACnet or Modbus then the current value
+is typically refreshed using polling or subscription over a network.
+Also see `docHaystack::Points#cur` chapter. 
+[More...](./CurPoint)
+### HisPoint
+Historized point with a history log of timestamp/value pairs.  Points
+marked as historized indicate the system can response to queries via
+the &#39;hisRead&#39; operation to return a trend log of timestamp/value pairs.
+
+There are typically two mechanisms for historization:
+  - the local system performs the historization by logging the
+    point&#39;s `curVal` to local storage
+  - in overlay systems a downstream device performs the historization
+    and the local system synchronizes the history data in batch on
+    a periodic basis
+
+Also see `docHaystack::Points#his` chapter. 
+[More...](./HisPoint)
+### WeatherPoint
+Weather station observation point.
+See `docHaystack::Weather#points` chapter. 
+[More...](./WeatherPoint)
+### WritablePoint
+Point with writable output using 16-level priority array.  Writable
+points typically are a setpoint or actuator command.  Haystack writable
+points are modeled on the BACnet 16-level priority array with a
+relinquish default which effectively acts as level 17.
+
+The following levels have special behavior:
+ - **Level 1**: highest priority reserved for emergency overrides
+ - **Level 8**: manual override with ability to set timer to expire back to auto
+ - **Default**: implicitly acts as level 17 for relinquish default
+
+The priority array provides for contention resolution when many different
+control applications may be vying for control of a given point. Low level
+applications like scheduling typically control levels 14, 15, or 16. Then
+users can override at level 8. But a higher levels like 2 to 7 can be used
+to trump a user override (for example a demand response energy routine
+that requires higher priority).
+
+The actual value to write is resolved by starting at level 1 and working down
+to relinquish default to find the first non-null value. It is possible for
+all levels to be null, in which case the overall write output is null (which
+in turn may be auto/null to another system). Anytime a null value is written
+to a priority level, we say that level has been set to auto or released (this
+allows the next highest level to take command of the output).
+
+Also see `docHaystack::Points#writable` chapter. 
+[More...](./WritablePoint)
+### PointGroup
+Grouping of children points used by spaces and equipment 
+[More...](./PointGroup)
+### AirQualityZonePoints
+Entity with logical grouping of zone air quality points.
+See `docHaystack::Zones#airQuality` chapter. 
+[More...](./AirQualityZonePoints)
+### HvacZonePoints
+Entity with logical grouping of zone HVAC air points.
+See `docHaystack::Zones#hvac` chapter. 
+[More...](./HvacZonePoints)
+### LightingZonePoints
+Entity with logical grouping of lighting points.
+See `docHaystack::Zones#lighting` chapter. 
+[More...](./LightingZonePoints)
+### Site
+Site is a geographic location of the built environment.
+Typically site maps to one building with its own unique
+street address.  See `docHaystack::Sites` chapter. 
+[More...](./Site)
+### Space
+Space is a three-dimensional volume in the built environment.
+See `docHaystack::Spaces` chapter. 
+[More...](./Space)
+### DataCenter
+Space used to house computer and networking gear.
+See `docHaystack::DataCenters` chapter. 
+[More...](./DataCenter)
+### Floor
+Storey of a building.  See `docHaystack::Spaces#floors` chapter. 
+[More...](./Floor)
+### GroundFloor
+Floor at ground level.  In North America this is typically called
+the first floor, but in Europe its often labeled as floor zero.
+If `floorNum` is defined, then it must be set to zero. 
+[More...](./GroundFloor)
+### RoofFloor
+The roof floor is the topmost level of a building.  It is often
+where HVAC equipment is located such as rooftop AHUs. 
+[More...](./RoofFloor)
+### SubterraneanFloor
+Floor below ground level.  Subterranean floors are also known as
+basements, lower levels, or cellars. 
+[More...](./SubterraneanFloor)
+### Room
+Enclosed room of a building 
+[More...](./Room)
+### ZoneSpace
+Space associated with a specific system.
+See `docHaystack::Spaces#zones` and `docHaystack::Zones` chapters. 
+[More...](./ZoneSpace)
+### HvacZoneSpace
+Zone related to conditioning of a space&#39;s air temperature and quality.
+See `docHaystack::Spaces#zones` and `docHaystack::Zones#hvac` chapters. 
+[More...](./HvacZoneSpace)
+### LightingZoneSpace
+Zone related to lighting system.
+See `docHaystack::Spaces#zones` and `docHaystack::Zones#lighting` chapters. 
+[More...](./LightingZoneSpace)
+### System
+Grouping of related equipment dedicated to a single application.
+See `docHaystack::Systems` chapter. 
+[More...](./System)
+### AirSystem
+System for moving air to maintain indoor thermal comfort and/or air quality. 
+[More...](./AirSystem)
+### AirConditioningSystem
+System for air treatment to control its temperature, humidity, cleanliness,
+and distribution to meet the requirements of a conditioned space. 
+[More...](./AirConditioningSystem)
+### AirExhaustSystem
+System consisting of one or more fans that remove air from the building.
+Exhaust systems allow outdoor air to enter by ventilation inlets or normal
+leakage paths sthrough the building envelope. 
+[More...](./AirExhaustSystem)
+### AirVentilationSystem
+System that supplies or removes air by natural or mechanical means to or
+from any space in order to provide outdoor air to the space. Such air may or
+may not have been conditioned. 
+[More...](./AirVentilationSystem)
+### ElecSystem
+System that generates, converts, distributes, and/or stores electricity. 
+[More...](./ElecSystem)
+### EvseSystem
+A system that supplies electricity to EVSE assembly equipment and its
+auxiliary loads. 
+[More...](./EvseSystem)
+### LightingSystem
+System designed to provide lighting. 
+[More...](./LightingSystem)
+### RefrigSystem
+Refrigerant distribution to fulfill all or parts of a refrigeration cycle. 
+[More...](./RefrigSystem)
+### VrfSystem
+Variable refigerant flow system.  The system contains the indoor
+units, outdoor units, and branch selectors.  See `docHaystack::VRF#types`
+chapter. 
+[More...](./VrfSystem)
+### VrfCoolingOnlySystem
+Cooling only VRF system can only cool; heating is not available.
+See `docHaystack::VRF#types` chapter. 
+[More...](./VrfCoolingOnlySystem)
+### VrfHeatPumpSystem
+Heat pump VRF system can either heat, or cool, but not at the same time.
+See `docHaystack::VRF#types` chapter. 
+[More...](./VrfHeatPumpSystem)
+### VrfHeatRecoverySystem
+Heat recovery VRF system can operate cooling and heating by each indoor unit
+independently, at the same time. Heat recovery VRF systems have branch selectors
+to control how much, and which (hot gas or subcooled liquid) refrigerant
+goes to each indoor unit.  See `docHaystack::VRF#types` chapter. 
+[More...](./VrfHeatRecoverySystem)
+### WaterSystem
+System that supplies or collects potable or non-potable water in any state. 
+[More...](./WaterSystem)
+### ChilledWaterSystem
+System that circulates water in its liquid state below ambient temperature
+for cooling a space or process. 
+[More...](./ChilledWaterSystem)
+### CondenserWaterSystem
+System that circulates water in its liquid state for rejecting heat
+from a space or process. 
+[More...](./CondenserWaterSystem)
+### DomesticWaterSystem
+System that circulates potable water in its liquid state for purposes
+other than space conditioning and process requirements. 
+[More...](./DomesticWaterSystem)
+### DomesticColdWaterSystem
+System that circulates potable cold water in its liquid state for purposes
+other than space cooling and process requirements. 
+[More...](./DomesticColdWaterSystem)
+### DomesticHotWaterSystem
+System that circulates potable hot water in its liquid state for purposes
+other than space heating and process requirements. 
+[More...](./DomesticHotWaterSystem)
+### HotWaterSystem
+System that circulates water in its liquid state for heating
+a space or process. 
+[More...](./HotWaterSystem)
+### SteamSystem
+System that circulates water in its vapor state for heating
+a space or process. 
+[More...](./SteamSystem)
+### WeatherStation
+Logical weather station and its measurement points.
+See `docHaystack::Weather#stations` chapter. 
+[More...](./WeatherStation)

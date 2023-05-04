@@ -1,0 +1,38 @@
+# HisPoint
+Historized point with a history log of timestamp/value pairs.  Points
+marked as historized indicate the system can response to queries via
+the &#39;hisRead&#39; operation to return a trend log of timestamp/value pairs.
+
+There are typically two mechanisms for historization:
+  - the local system performs the historization by logging the
+    point&#39;s `curVal` to local storage
+  - in overlay systems a downstream device performs the historization
+    and the local system synchronizes the history data in batch on
+    a periodic basis
+
+Also see `docHaystack::Points#his` chapter.
+## Markers
+- point
+- his
+
+## Slots
+
+### pointType: `Marker`
+
+### equipsType: `Query`
+
+### hisType: `Marker`
+
+
+## Super Types
+### Point
+Data point such as a sensor or actuator.
+See `docHaystack::Points` chapter. 
+[More...](./Point)
+
+### Entity
+Top-level dicts with a unique identifier.
+See `docHaystack::Ontology#entities` chapter. 
+[More...](./Entity)
+
+

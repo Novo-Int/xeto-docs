@@ -1,0 +1,38 @@
+# HeatExchanger
+Equipment to transfer heat between two working fluids.
+## Markers
+- equip
+- heatExchanger
+
+## Slots
+
+### equipType: `Marker`
+
+### pointsType: `Query`
+
+### heatExchangerType: `Marker`
+
+
+## Super Types
+### Equip
+Equipment asset.
+See `docHaystack::Equips` chapter. 
+[More...](./Equip)
+
+### Entity
+Top-level dicts with a unique identifier.
+See `docHaystack::Ontology#entities` chapter. 
+[More...](./Entity)
+
+
+## Subtypes
+### Coil
+Heat exchanger used to heat or cool air.  Coils are sub-components
+of HVAC equipment such as `airHandlingEquip`. 
+[More...](./Coil)
+### CoolingCoil
+Coil used to cool air. 
+[More...](./CoolingCoil)
+### HeatingCoil
+Coil used to heat air. 
+[More...](./HeatingCoil)

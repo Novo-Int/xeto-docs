@@ -9,10 +9,10 @@
 		"test": "jest",
 		"coverage": "jest --coverage",
 		"doc": "typedoc ./src/",
-		"build": "npm run clean && tsc --project ./tsconfig.json && npx rollup --config=rollup.config.mjs && npx copyfiles -u 1 \"./build/**/*.d.ts\" ./dist",
-		"clean": "rimraf ./dist && rimraf ./build",
+		"gen": "ts-node ./src/main.ts",
+		"clean": "rimraf ./dist && rimraf ./build && rimraf ./.next",
 		"bundle": "webpack",
-		"build-next": "next build",
+		"build": "next build",
 		"start": "next start",
 		"dev": "next"
 	},

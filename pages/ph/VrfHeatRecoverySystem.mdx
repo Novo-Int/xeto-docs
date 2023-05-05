@@ -4,10 +4,26 @@ independently, at the same time. Heat recovery VRF systems have branch selectors
 to control how much, and which (hot gas or subcooled liquid) refrigerant
 goes to each indoor unit.  See `docHaystack::VRF#types` chapter.
 ## Markers
-- system
-- refrig
-- vrf
-- heatRecovery
+<table>
+<tbody>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'>system </span></td>
+<td className='p-2 align-top'>Grouping of related equipment dedicated to a single application. See `docHaystack::Systems` chapter.</td>
+</tr>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'>refrig </span></td>
+<td className='p-2 align-top'>Fluid used in refrigeration and heat exchange.  Refrigerants typically alternate between liquid and gas state.</td>
+</tr>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'>vrf </span></td>
+<td className='p-2 align-top'>Variable refigerant flow.  See `docHaystack::VRF` chapter.</td>
+</tr>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'>heatRecovery </span></td>
+<td className='p-2 align-top'>Transfer of heat from one substance to another to reduce energy consumption.</td>
+</tr>
+</tbody>
+</table>
 
 ## Slots
 
@@ -24,21 +40,17 @@ goes to each indoor unit.  See `docHaystack::VRF#types` chapter.
 ### VrfSystem
 Variable refigerant flow system.  The system contains the indoor
 units, outdoor units, and branch selectors.  See `docHaystack::VRF#types`
-chapter. 
-[More...](./VrfSystem)
+chapter.[More...](./VrfSystem)
 
 ### RefrigSystem
-Refrigerant distribution to fulfill all or parts of a refrigeration cycle. 
-[More...](./RefrigSystem)
+Refrigerant distribution to fulfill all or parts of a refrigeration cycle.[More...](./RefrigSystem)
 
 ### System
 Grouping of related equipment dedicated to a single application.
-See `docHaystack::Systems` chapter. 
-[More...](./System)
+See `docHaystack::Systems` chapter.[More...](./System)
 
 ### Entity
 Top-level dicts with a unique identifier.
-See `docHaystack::Ontology#entities` chapter. 
-[More...](./Entity)
+See `docHaystack::Ontology#entities` chapter.[More...](./Entity)
 
 

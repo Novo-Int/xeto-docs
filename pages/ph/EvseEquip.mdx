@@ -2,8 +2,18 @@
 Equipment that supports the delivery of electricity to charging inlets
 located on EVs.  See `docHaystack::EVSE` chapter.
 ## Markers
-- equip
-- evse
+<table>
+<tbody>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'>equip </span></td>
+<td className='p-2 align-top'>Equipment asset. See `docHaystack::Equips` chapter.</td>
+</tr>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'>evse </span></td>
+<td className='p-2 align-top'>Electric Vehicle Supply Equipment.  See `docHaystack::EVSE` chapter.</td>
+</tr>
+</tbody>
+</table>
 
 ## Slots
 
@@ -17,25 +27,20 @@ located on EVs.  See `docHaystack::EVSE` chapter.
 ## Super Types
 ### Equip
 Equipment asset.
-See `docHaystack::Equips` chapter. 
-[More...](./Equip)
+See `docHaystack::Equips` chapter.[More...](./Equip)
 
 ### Entity
 Top-level dicts with a unique identifier.
-See `docHaystack::Ontology#entities` chapter. 
-[More...](./Entity)
+See `docHaystack::Ontology#entities` chapter.[More...](./Entity)
 
 
 ## Subtypes
 ### EvseAssembly
 Equipment that delivers electricity via EVSE ports to charging inlets
-located on EVs.  See `docHaystack::EVSE#assembly` chapter. 
-[More...](./EvseAssembly)
+located on EVs.  See `docHaystack::EVSE#assembly` chapter.[More...](./EvseAssembly)
 ### EvseCable
 Models the electrical connection between an `evse-port` and an EV charging
-inlet.  See `docHaystack::EVSE#cable` chapter. 
-[More...](./EvseCable)
+inlet.  See `docHaystack::EVSE#cable` chapter.[More...](./EvseCable)
 ### EvsePort
 An EVSE port delivers electricity to a single EV charging inlet at a
-time.  See `docHaystack::EVSE#port` chapter. 
-[More...](./EvsePort)
+time.  See `docHaystack::EVSE#port` chapter.[More...](./EvsePort)

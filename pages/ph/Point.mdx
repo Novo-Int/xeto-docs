@@ -2,7 +2,14 @@
 Data point such as a sensor or actuator.
 See `docHaystack::Points` chapter.
 ## Markers
-- point
+<table>
+<tbody>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'>point </span></td>
+<td className='p-2 align-top'>Data point such as a sensor or actuator. See `docHaystack::Points` chapter.</td>
+</tr>
+</tbody>
+</table>
 
 ## Slots
 
@@ -14,8 +21,7 @@ See `docHaystack::Points` chapter.
 ## Super Types
 ### Entity
 Top-level dicts with a unique identifier.
-See `docHaystack::Ontology#entities` chapter. 
-[More...](./Entity)
+See `docHaystack::Ontology#entities` chapter.[More...](./Entity)
 
 
 ## Subtypes
@@ -26,8 +32,7 @@ most a few minutes.  For systems with direct I/O the current value is
 typically driven by the I/O scan rate. For overlay systems which acquire
 data via a protocol such as BACnet or Modbus then the current value
 is typically refreshed using polling or subscription over a network.
-Also see `docHaystack::Points#cur` chapter. 
-[More...](./CurPoint)
+Also see `docHaystack::Points#cur` chapter.[More...](./CurPoint)
 ### HisPoint
 Historized point with a history log of timestamp/value pairs.  Points
 marked as historized indicate the system can response to queries via
@@ -40,12 +45,10 @@ There are typically two mechanisms for historization:
     and the local system synchronizes the history data in batch on
     a periodic basis
 
-Also see `docHaystack::Points#his` chapter. 
-[More...](./HisPoint)
+Also see `docHaystack::Points#his` chapter.[More...](./HisPoint)
 ### WeatherPoint
 Weather station observation point.
-See `docHaystack::Weather#points` chapter. 
-[More...](./WeatherPoint)
+See `docHaystack::Weather#points` chapter.[More...](./WeatherPoint)
 ### WritablePoint
 Point with writable output using 16-level priority array.  Writable
 points typically are a setpoint or actuator command.  Haystack writable
@@ -71,5 +74,4 @@ in turn may be auto/null to another system). Anytime a null value is written
 to a priority level, we say that level has been set to auto or released (this
 allows the next highest level to take command of the output).
 
-Also see `docHaystack::Points#writable` chapter. 
-[More...](./WritablePoint)
+Also see `docHaystack::Points#writable` chapter.[More...](./WritablePoint)

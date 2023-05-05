@@ -2,7 +2,14 @@
 Equipment asset.
 See `docHaystack::Equips` chapter.
 ## Markers
-- equip
+<table>
+<tbody>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'>equip </span></td>
+<td className='p-2 align-top'>Equipment asset. See `docHaystack::Equips` chapter.</td>
+</tr>
+</tbody>
+</table>
 
 ## Slots
 
@@ -14,8 +21,7 @@ See `docHaystack::Equips` chapter.
 ## Super Types
 ### Entity
 Top-level dicts with a unique identifier.
-See `docHaystack::Ontology#entities` chapter. 
-[More...](./Entity)
+See `docHaystack::Ontology#entities` chapter.[More...](./Entity)
 
 
 ## Subtypes
@@ -23,290 +29,216 @@ See `docHaystack::Ontology#entities` chapter.
 Equipment to move or control a mechanism.  Actuators may be manually
 operated or automated via a control system to convert an energy source
 into mechanical energy.  Typically the energy source is electricity,
-hydraulics, or pneumatics. 
-[More...](./Actuator)
+hydraulics, or pneumatics.[More...](./Actuator)
 ### DamperActuator
-Actuator to regulate the flow of air. 
-[More...](./DamperActuator)
+Actuator to regulate the flow of air.[More...](./DamperActuator)
 ### ValveActuator
-Actuator to regulate the flow of fluid. 
-[More...](./ValveActuator)
+Actuator to regulate the flow of fluid.[More...](./ValveActuator)
 ### AirHandlingEquip
 HVAC equipment that conditions and delivers air via one or more fans.
 Conditioning of air includes heating, cooling, humidification,
-dehumidification, and ventilation. See `docHaystack::AHUs` chapter. 
-[More...](./AirHandlingEquip)
+dehumidification, and ventilation. See `docHaystack::AHUs` chapter.[More...](./AirHandlingEquip)
 ### Ahu
 Air Handling Unit: An enclosure with a fan that delivers air to a space
 via ductwork and performs one or more of the functions of cleaning,
 heating, cooling, humidifying, dehumidifying, ventilating or circulating
-the air.  See `docHaystack::AHUs` chapter. 
-[More...](./Ahu)
+the air.  See `docHaystack::AHUs` chapter.[More...](./Ahu)
 ### Doas
 Dedicated Outside Air System: An AHU that brings in 100% outside air and
 no recirculated air in order to provide ventilation to spaces.
-See `docHaystack::AHUs` chapter. 
-[More...](./Doas)
+See `docHaystack::AHUs` chapter.[More...](./Doas)
 ### Mau
 Makeup Air Unit: A DOAS that provides make-up air for a separate, dedicated
 exhaust system. That is, this equip does not contain an exhaust air section.
-See `docHaystack::AHUs` chapter. 
-[More...](./Mau)
+See `docHaystack::AHUs` chapter.[More...](./Mau)
 ### Rtu
 Roof Top Unit: A unitary AHU that is weatherized for outdoor use.
-See `docHaystack::AHUs` chapter. 
-[More...](./Rtu)
+See `docHaystack::AHUs` chapter.[More...](./Rtu)
 ### Fcu
 Fan Coil Unit: A unitary, factory-made enclosure with a fan and coil
 that recirculates air in a space and performs one or more of the
 functions of cleaning, heating, cooling, humidifying, dehumidifying,
 or ventilating the air. Unit heaters are examples of FCUs.
-See `docHaystack::AHUs` chapter. 
-[More...](./Fcu)
+See `docHaystack::AHUs` chapter.[More...](./Fcu)
 ### Crac
 Computer Room Air Conditioner: An FCU designed to condition a computer
-room.  See `docHaystack::AHUs` and `docHaystack::DataCenters` chapters. 
-[More...](./Crac)
+room.  See `docHaystack::AHUs` and `docHaystack::DataCenters` chapters.[More...](./Crac)
 ### UnitVent
 Unit Ventilator: An FCU that has direct access to outside air to provide
-the space with ventilation.  See `docHaystack::AHUs` chapter. 
-[More...](./UnitVent)
+the space with ventilation.  See `docHaystack::AHUs` chapter.[More...](./UnitVent)
 ### AirTerminalUnit
 Equipment in air distribution systems which terminate at the space.
 Terminal units receive air from `airHandlingEquip` which have the
 primarily responsibility to condition air.  Terminal units are primarily
-responsible for delivery of air to the space and tempering the temperature. 
-[More...](./AirTerminalUnit)
+responsible for delivery of air to the space and tempering the temperature.[More...](./AirTerminalUnit)
 ### Cav
 Constant air volume terminal unit.  CAV systems use a constant
-air flow rate with a variable air temperature. 
-[More...](./Cav)
+air flow rate with a variable air temperature.[More...](./Cav)
 ### Vav
 Variable air volume terminal unit.  VAV systems use a constant air
-temperature with a variable air flow rate.  See `docHaystack::VAVs` chapter. 
-[More...](./Vav)
+temperature with a variable air flow rate.  See `docHaystack::VAVs` chapter.[More...](./Vav)
 ### Assembly
-A collection of manufactured parts or subassemblies. 
-[More...](./Assembly)
+A collection of manufactured parts or subassemblies.[More...](./Assembly)
 ### Ates
 Aquifer Thermal Energy Storage system.
-See `docHaystack::ATES` chapter. 
-[More...](./Ates)
+See `docHaystack::ATES` chapter.[More...](./Ates)
 ### Battery
-Equipment used to store electric energy 
-[More...](./Battery)
+Equipment used to store electric energy[More...](./Battery)
 ### Boiler
-Equipment to generate hot water or steam for heating 
-[More...](./Boiler)
+Equipment to generate hot water or steam for heating[More...](./Boiler)
 ### HotWaterBoiler
-Boiler which outputs hot water 
-[More...](./HotWaterBoiler)
+Boiler which outputs hot water[More...](./HotWaterBoiler)
 ### SteamBoiler
-Boiler which outputs steam 
-[More...](./SteamBoiler)
+Boiler which outputs steam[More...](./SteamBoiler)
 ### Cable
-An assembly of one or more insulated conductors. 
-[More...](./Cable)
+An assembly of one or more insulated conductors.[More...](./Cable)
 ### Chiller
 Equipment to remove heat from a liquid.  Chillers typically use a vapor
-compression or an absorption refrigeration cycle. 
-[More...](./Chiller)
+compression or an absorption refrigeration cycle.[More...](./Chiller)
 ### Circuit
 Electrical circuit and its associated components such as breakers.
-See `docHaystack::ElecPanels#circuits` chapter. 
-[More...](./Circuit)
+See `docHaystack::ElecPanels#circuits` chapter.[More...](./Circuit)
 ### Conduit
-Duct, pipe, or cable to convey a substance or phenomenon 
-[More...](./Conduit)
+Duct, pipe, or cable to convey a substance or phenomenon[More...](./Conduit)
 ### Duct
-Conduit used to convey air for HVAC 
-[More...](./Duct)
+Conduit used to convey air for HVAC[More...](./Duct)
 ### Pipe
-Conduit used to convey a fluid 
-[More...](./Pipe)
+Conduit used to convey a fluid[More...](./Pipe)
 ### Wire
-Cabling used to convey electricity or data 
-[More...](./Wire)
+Cabling used to convey electricity or data[More...](./Wire)
 ### CoolingTower
-Equipment to transfer waste heat into the atmosphere 
-[More...](./CoolingTower)
+Equipment to transfer waste heat into the atmosphere[More...](./CoolingTower)
 ### EvseEquip
 Equipment that supports the delivery of electricity to charging inlets
-located on EVs.  See `docHaystack::EVSE` chapter. 
-[More...](./EvseEquip)
+located on EVs.  See `docHaystack::EVSE` chapter.[More...](./EvseEquip)
 ### EvseAssembly
 Equipment that delivers electricity via EVSE ports to charging inlets
-located on EVs.  See `docHaystack::EVSE#assembly` chapter. 
-[More...](./EvseAssembly)
+located on EVs.  See `docHaystack::EVSE#assembly` chapter.[More...](./EvseAssembly)
 ### EvseCable
 Models the electrical connection between an `evse-port` and an EV charging
-inlet.  See `docHaystack::EVSE#cable` chapter. 
-[More...](./EvseCable)
+inlet.  See `docHaystack::EVSE#cable` chapter.[More...](./EvseCable)
 ### EvsePort
 An EVSE port delivers electricity to a single EV charging inlet at a
-time.  See `docHaystack::EVSE#port` chapter. 
-[More...](./EvsePort)
+time.  See `docHaystack::EVSE#port` chapter.[More...](./EvsePort)
 ### FlowInverter
-System to change direction of substance flow 
-[More...](./FlowInverter)
+System to change direction of substance flow[More...](./FlowInverter)
 ### FumeHood
-Ventilation equipment to limit exposure to hazardous fumes. 
-[More...](./FumeHood)
+Ventilation equipment to limit exposure to hazardous fumes.[More...](./FumeHood)
 ### HeatExchanger
-Equipment to transfer heat between two working fluids. 
-[More...](./HeatExchanger)
+Equipment to transfer heat between two working fluids.[More...](./HeatExchanger)
 ### Coil
 Heat exchanger used to heat or cool air.  Coils are sub-components
-of HVAC equipment such as `airHandlingEquip`. 
-[More...](./Coil)
+of HVAC equipment such as `airHandlingEquip`.[More...](./Coil)
 ### CoolingCoil
-Coil used to cool air. 
-[More...](./CoolingCoil)
+Coil used to cool air.[More...](./CoolingCoil)
 ### HeatingCoil
-Coil used to heat air. 
-[More...](./HeatingCoil)
+Coil used to heat air.[More...](./HeatingCoil)
 ### HumidifierEquip
-Equipment which adds moisture to air to increase humidity 
-[More...](./HumidifierEquip)
+Equipment which adds moisture to air to increase humidity[More...](./HumidifierEquip)
 ### Luminaire
-Light fixture using electricity to provide illumination 
-[More...](./Luminaire)
+Light fixture using electricity to provide illumination[More...](./Luminaire)
 ### Meter
 Equipment to meter a substance or phenomenon.
-See `docHaystack::Meters` chapter. 
-[More...](./Meter)
+See `docHaystack::Meters` chapter.[More...](./Meter)
 ### ElecMeter
-Electricity meter 
-[More...](./ElecMeter)
+Electricity meter[More...](./ElecMeter)
 ### AcElecMeter
 AC Electricity meter.
-See `docHaystack::Meters` chapter. 
-[More...](./AcElecMeter)
+See `docHaystack::Meters` chapter.[More...](./AcElecMeter)
 ### DcElecMeter
 DC Electricity meter.
-See `docHaystack::Meters` chapter. 
-[More...](./DcElecMeter)
+See `docHaystack::Meters` chapter.[More...](./DcElecMeter)
 ### FlowMeter
 Meter to measure flow rate and total volume of fluid.
-See `docHaystack::Meters` chapter. 
-[More...](./FlowMeter)
+See `docHaystack::Meters` chapter.[More...](./FlowMeter)
 ### Motor
 Equipment that converts electrical energy into mechanical energy.
-See `docHaystack::Motors` chapter. 
-[More...](./Motor)
+See `docHaystack::Motors` chapter.[More...](./Motor)
 ### FanMotor
 Motor used with a fan to create air flow.
-See `docHaystack::Motors` chapter. 
-[More...](./FanMotor)
+See `docHaystack::Motors` chapter.[More...](./FanMotor)
 ### PumpMotor
 Motor used with a pump to move fluid.
-See `docHaystack::Motors` chapter. 
-[More...](./PumpMotor)
+See `docHaystack::Motors` chapter.[More...](./PumpMotor)
 ### Panel
 Enclosure for electrical and control equipment.  Panels may be
 used to isolate electrical connections and provide environmental
-protection. 
-[More...](./Panel)
+protection.[More...](./Panel)
 ### ControlsPanel
-Panel housing controllers and networking gear 
-[More...](./ControlsPanel)
+Panel housing controllers and networking gear[More...](./ControlsPanel)
 ### ElecPanel
 Physical housing for electrical circuits, fuses, and breakers.
-See `docHaystack::ElecPanels#panels` chapter. 
-[More...](./ElecPanel)
+See `docHaystack::ElecPanels#panels` chapter.[More...](./ElecPanel)
 ### Plant
 Central plant used to generate a substance for a process.
-See `docHaystack::Plants`. 
-[More...](./Plant)
+See `docHaystack::Plants`.[More...](./Plant)
 ### ChilledWaterPlant
 Plant used to generate chilled water for cooling.
-See `docHaystack::Plants`. 
-[More...](./ChilledWaterPlant)
+See `docHaystack::Plants`.[More...](./ChilledWaterPlant)
 ### HotWaterPlant
 Plant used to generate hot water for heating.
-See `docHaystack::Plants`. 
-[More...](./HotWaterPlant)
+See `docHaystack::Plants`.[More...](./HotWaterPlant)
 ### SteamPlant
 Plant used to generate steam for heating.
-See `docHaystack::Plants`. 
-[More...](./SteamPlant)
+See `docHaystack::Plants`.[More...](./SteamPlant)
 ### VrfRefrigPlant
-Group of outdoor units in a VRF system.  See `docHaystack::VRF#refrigPlant`. 
-[More...](./VrfRefrigPlant)
+Group of outdoor units in a VRF system.  See `docHaystack::VRF#refrigPlant`.[More...](./VrfRefrigPlant)
 ### Rack
 Enclosure or chassis used to mount computer and networking gear.
 Devices are mounted to rails of a standard width, typically 19 or 23
 inches.  Height is measured in *rack units* where one 1U is 1.75 inches.
 A full rack has a height of 42U.
-See `docHaystack::DataCenters#racks` chapter. 
-[More...](./Rack)
+See `docHaystack::DataCenters#racks` chapter.[More...](./Rack)
 ### RadiantEquip
-HVAC equipment that conditions a space without forced air. 
-[More...](./RadiantEquip)
+HVAC equipment that conditions a space without forced air.[More...](./RadiantEquip)
 ### ChilledBeam
-Conditions a space using a heat exchanger integrated into the ceiling 
-[More...](./ChilledBeam)
+Conditions a space using a heat exchanger integrated into the ceiling[More...](./ChilledBeam)
 ### RadiantFloor
-Heats a space using pipes or cables embedded beneath floor. 
-[More...](./RadiantFloor)
+Heats a space using pipes or cables embedded beneath floor.[More...](./RadiantFloor)
 ### Radiator
 Heats a space using exposed pipes or coils.  Hot water and steam
 radiators are often cast iron and installed directly in the space
 or along the baseboard.  Electric radiators are typically installed
-on the baseboard. 
-[More...](./Radiator)
+on the baseboard.[More...](./Radiator)
 ### Tank
-Tank used to store a substance for temporary holding 
-[More...](./Tank)
+Tank used to store a substance for temporary holding[More...](./Tank)
 ### Thermostat
 Senses and controls temperature of space in HVAC system.  Thermostats
-may provide an interface for setpoint control. 
-[More...](./Thermostat)
+may provide an interface for setpoint control.[More...](./Thermostat)
 ### Ups
-Uninterruptible power supply 
-[More...](./Ups)
+Uninterruptible power supply[More...](./Ups)
 ### VerticalTransport
-Equipment to move humans and materials 
-[More...](./VerticalTransport)
+Equipment to move humans and materials[More...](./VerticalTransport)
 ### Elevator
-Enclosure used to move people between floors. 
-[More...](./Elevator)
+Enclosure used to move people between floors.[More...](./Elevator)
 ### Escalator
-Moving staircase used to move people between floors. 
-[More...](./Escalator)
+Moving staircase used to move people between floors.[More...](./Escalator)
 ### MovingWalkway
-Conveyor to move people across a horizontal or inclined plane. 
-[More...](./MovingWalkway)
+Conveyor to move people across a horizontal or inclined plane.[More...](./MovingWalkway)
 ### VrfEquip
-Equipment used in VRF systems.  See `docHaystack::VRF#equip` chapter. 
-[More...](./VrfEquip)
+Equipment used in VRF systems.  See `docHaystack::VRF#equip` chapter.[More...](./VrfEquip)
 ### BranchSelector
 Branch selector used for heat recovery in a VRF system.  These are
 control devices directing the liquid refrigerant or gas refrigerant
 to zones requiring cooling or heating. See `docHaystack::VRF#branchSelector`
-chapter. 
-[More...](./BranchSelector)
+chapter.[More...](./BranchSelector)
 ### VrfIndoorUnit
 Indoor unit in a VRF system.  Indoor units operate to satisfy a heating
-or cooling load. See `docHaystack::VRF#indoorUnits` chapter. 
-[More...](./VrfIndoorUnit)
+or cooling load. See `docHaystack::VRF#indoorUnits` chapter.[More...](./VrfIndoorUnit)
 ### VrfIndoorUnitFcu
 Indoor unit fan coil unit in a VRF system.  This includes but is not
 limited to: ducted-type and non-ducted types such as wall-mount,
 floor-mount, ceiling-mount and cassettes.  Indoor unit fan coils operate
 to satisfy a heating  or cooling load in a zone based on a zone thermostat
-temperature set point. 
-[More...](./VrfIndoorUnitFcu)
+temperature set point.[More...](./VrfIndoorUnitFcu)
 ### VrfOutdoorUnit
 Outdoor unit with one or more compressors in a VRF system. As each indoor
 unit sends a demand to the outdoor unit, outdoor unit delivers the amount
 of refrigerant needed to meet the individual requirements of each indoor
-unit.  See `docHaystack::VRF#outdoorUnits` chapter. 
-[More...](./VrfOutdoorUnit)
+unit.  See `docHaystack::VRF#outdoorUnits` chapter.[More...](./VrfOutdoorUnit)
 ### Well
 A well is a source of groundwater and potentially thermal energy.  When
 used within an [ATES]`docHaystack::ATES` system, the well facilitates thermal
 energy exchange with the ground warm and cool water sources. In this case, a
 well can be either a closed system that transports water through pipes in the
-ground, or an open system that pumps up and returns ground water. 
-[More...](./Well)
+ground, or an open system that pumps up and returns ground water.[More...](./Well)

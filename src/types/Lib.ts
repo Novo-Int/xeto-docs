@@ -1,4 +1,4 @@
-import { Type, getOptionalString, getString as getString } from './Type'
+import { Type, getOptionalString, getString } from './Type'
 
 /**
  * Organization type

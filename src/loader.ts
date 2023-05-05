@@ -1,5 +1,4 @@
 import { Lib } from './types/Lib'
-import { Type } from './types/Type'
 
 export class LibsRegistry {
 	libs: Map<string, Lib> = new Map()

@@ -1,9 +1,11 @@
-import fs from 'fs/promises'
 import Eta from 'eta'
+import fs from 'fs/promises'
 
 import { LibsRegistry } from './loader'
+import { haystackDocs } from './types/hs-defs'
 
 async function main() {
+	const hsDocs = await haystackDocs()
 	const json = await fs.readFile('./test_data/ph.json', { encoding: 'utf-8' })
 	const props = JSON.parse(json)
 
@@ -23,7 +25,7 @@ async function main() {
 		await fs.writeFile(`./pages/${libName}/index.mdx`, libPage)
 
 		for (const type of lib.types) {
-			const typePage = Eta.render(typeTemplate, type ?? {})
+			const typePage = Eta.render(typeTemplate, { type, hsDocs } ?? {})
 			await fs.writeFile(
 				`./pages/${libName}/${type.typename}.mdx`,
 				typePage

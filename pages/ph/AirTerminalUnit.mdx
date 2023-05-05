@@ -4,7 +4,14 @@ Terminal units receive air from `airHandlingEquip` which have the
 primarily responsibility to condition air.  Terminal units are primarily
 responsible for delivery of air to the space and tempering the temperature.
 ## Markers
-- equip
+<table>
+<tbody>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'>equip </span></td>
+<td className='p-2 align-top'>Equipment asset. See `docHaystack::Equips` chapter.</td>
+</tr>
+</tbody>
+</table>
 
 ## Slots
 
@@ -16,21 +23,17 @@ responsible for delivery of air to the space and tempering the temperature.
 ## Super Types
 ### Equip
 Equipment asset.
-See `docHaystack::Equips` chapter. 
-[More...](./Equip)
+See `docHaystack::Equips` chapter.[More...](./Equip)
 
 ### Entity
 Top-level dicts with a unique identifier.
-See `docHaystack::Ontology#entities` chapter. 
-[More...](./Entity)
+See `docHaystack::Ontology#entities` chapter.[More...](./Entity)
 
 
 ## Subtypes
 ### Cav
 Constant air volume terminal unit.  CAV systems use a constant
-air flow rate with a variable air temperature. 
-[More...](./Cav)
+air flow rate with a variable air temperature.[More...](./Cav)
 ### Vav
 Variable air volume terminal unit.  VAV systems use a constant air
-temperature with a variable air flow rate.  See `docHaystack::VAVs` chapter. 
-[More...](./Vav)
+temperature with a variable air flow rate.  See `docHaystack::VAVs` chapter.[More...](./Vav)

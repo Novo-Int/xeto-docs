@@ -2,9 +2,22 @@
 Indoor unit in a VRF system.  Indoor units operate to satisfy a heating
 or cooling load. See `docHaystack::VRF#indoorUnits` chapter.
 ## Markers
-- equip
-- vrf
-- indoorUnit
+<table>
+<tbody>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'>equip </span></td>
+<td className='p-2 align-top'>Equipment asset. See `docHaystack::Equips` chapter.</td>
+</tr>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'>vrf </span></td>
+<td className='p-2 align-top'>Variable refigerant flow.  See `docHaystack::VRF` chapter.</td>
+</tr>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'>indoorUnit </span></td>
+<td className='p-2 align-top'>Operates inside the conditioned space</td>
+</tr>
+</tbody>
+</table>
 
 ## Slots
 
@@ -19,18 +32,15 @@ or cooling load. See `docHaystack::VRF#indoorUnits` chapter.
 
 ## Super Types
 ### VrfEquip
-Equipment used in VRF systems.  See `docHaystack::VRF#equip` chapter. 
-[More...](./VrfEquip)
+Equipment used in VRF systems.  See `docHaystack::VRF#equip` chapter.[More...](./VrfEquip)
 
 ### Equip
 Equipment asset.
-See `docHaystack::Equips` chapter. 
-[More...](./Equip)
+See `docHaystack::Equips` chapter.[More...](./Equip)
 
 ### Entity
 Top-level dicts with a unique identifier.
-See `docHaystack::Ontology#entities` chapter. 
-[More...](./Entity)
+See `docHaystack::Ontology#entities` chapter.[More...](./Entity)
 
 
 ## Subtypes
@@ -39,5 +49,4 @@ Indoor unit fan coil unit in a VRF system.  This includes but is not
 limited to: ducted-type and non-ducted types such as wall-mount,
 floor-mount, ceiling-mount and cassettes.  Indoor unit fan coils operate
 to satisfy a heating  or cooling load in a zone based on a zone thermostat
-temperature set point. 
-[More...](./VrfIndoorUnitFcu)
+temperature set point.[More...](./VrfIndoorUnitFcu)

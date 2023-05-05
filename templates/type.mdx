@@ -1,42 +1,48 @@
-# <%= it.typename %>
+# <%= it.type.typename %>
 
-<%= it.doc %>
+<%= it.type.doc %>
 
-<% if (it.markers.length) { %>
+<% if (it.type.markers.length) { %>
 ## Markers
-<% it.markers.forEach((name) => { %>
-- <%= name %>
-
+<table>
+<tbody>
+<% it.type.markers.forEach((name) => { %>
+<tr>
+<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'><%= name %> </span></td>
+<td className='p-2 align-top'><%= it.hsDocs.get(name)?.replaceAll(/\n/g, ' ') %></td>
+</tr>
 <% }) %>
+</tbody>
+</table>
 <% } %>
 
-<% if (Object.keys(it.slots).length) { %>
+<% if (Object.keys(it.type.slots).length) { %>
 ## Slots
 
-<% Object.entries(it.slots).forEach(([name, type]) => { %>
+<% Object.entries(it.type.slots).forEach(([name, type]) => { %>
 ### <%= name %>
 Type: `<%= type.typename %>`
 
 <% }) %>
 <% } %>
 
-<% if (it.allSuperTypes.length) { %>
+<% if (it.type.allSuperTypes.length) { %>
 ## Super Types
-<% it.allSuperTypes.forEach((type) => { %>
+<% it.type.allSuperTypes.forEach((type) => { %>
 ### <%= type.typename %>
 
-<%= type.doc %> 
+<%= type.doc %>
 [More...](./<%= type.typename %>)
 
 <% }) %>
 <% } %>
 
-<% if (it.allSubtypes.length) { %>
+<% if (it.type.allSubtypes.length) { %>
 ## Subtypes
-<% it.allSubtypes.forEach((type) => { %>
+<% it.type.allSubtypes.forEach((type) => { %>
 ### <%= type.typename %>
 
-<%= type.doc %> 
+<%= type.doc %>
 [More...](./<%= type.typename %>)
 <% }) %>
 <% } %>

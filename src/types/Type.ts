@@ -44,6 +44,12 @@ export class Type {
 	 */
 	lib?: Lib
 
+	/**
+	 * The file and line
+	 * location this type was defined
+	 */
+	loc?: string
+
 	constructor(name?: string, base?: string, lib?: Lib) {
 		this.type = name
 		this.base = base
@@ -59,6 +65,8 @@ export class Type {
 
 		this.isAbstract = getOptionalString('abstract', props) === 'marker'
 		this.isSealed = getOptionalString('sealed', props) === 'marker'
+
+		this.loc = getOptionalString('fileloc', props)
 
 		const slotsData = props.slots as Record<string, object>
 		if (slotsData) {
@@ -145,6 +153,22 @@ export class Type {
 		})
 
 		return [...list.values()]
+	}
+
+	/**
+	 * Gets the file name
+	 * where this type was defined
+	 */
+	get fileName(): string {
+		if (!this.loc) {
+			return ''
+		}
+
+		const [, name] =
+			/([a-zA-Z0-9._]+)(?:\.xeto)(?:\(\d+\s*,\s*\d+\))/.exec(this.loc) ??
+			''
+
+		return name
 	}
 }
 

@@ -9,7 +9,7 @@
 		"test": "jest",
 		"coverage": "jest --coverage",
 		"doc": "typedoc ./src/",
-		"gen": "ts-node ./src/main.ts",
+		"gen": "ts-node ./src/main.ts ph -a ./test_data/all.json -t ./pages",
 		"clean": "rimraf ./dist && rimraf ./build && rimraf ./.next",
 		"bundle": "webpack",
 		"build": "next build",
@@ -21,6 +21,7 @@
 	"dependencies": {
 		"eta": "^2.0.1",
 		"haystack-core": "^2.0.46",
+		"commander": "^10.0.1",
 		"next": "^13.3.4",
 		"nextra": "^2.4.2",
 		"nextra-theme-blog": "^2.4.2",

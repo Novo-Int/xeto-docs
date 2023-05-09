@@ -5,7 +5,7 @@
 			"type": "node-terminal",
 			"request": "launch",
 			"name": "Debug Program",
-			"command": "${workspaceFolder}/node_modules/.bin/ts-node -- ${file}",
+			"command": "${workspaceFolder}/node_modules/.bin/ts-node -- ${file} ph -a ./test_data/all.json -t ./pages",
 			"cwd": "${workspaceFolder}"
 		}
 	]

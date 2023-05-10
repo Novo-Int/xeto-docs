@@ -6,7 +6,7 @@
 <%= it.version %>
 
 ## Depends
-<% it.depends.forEach((type) => { %>
+<% it.depends?.forEach((type) => { %>
 - [<%= type.name %>](./<%= type.name %>)
 
 <% }) %>

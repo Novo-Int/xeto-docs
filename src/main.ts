@@ -17,7 +17,7 @@ async function main() {
 			'Location where to place the generated files.'
 		)
 		.command('test', 'The library names to generate the docs for.')
-		.arguments('<libs...>')
+		.arguments('[libs...]')
 		.action(
 			async (
 				libs: string[],
@@ -92,7 +92,7 @@ async function render({
 
 		const libPage = Eta.render(libTemplate, lib ?? {})
 		await fs.mkdir(`${targetDir}/${libName}`, { recursive: true })
-		await fs.writeFile(`${targetDir}/${libName}/index.mdx`, libPage)
+		await fs.writeFile(`${targetDir}/${libName}.mdx`, libPage)
 
 		for (const type of lib.types) {
 			const typePage = Eta.render(typeTemplate, { type, hsDocs } ?? {})

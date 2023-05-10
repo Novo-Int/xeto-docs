@@ -14,5 +14,5 @@ export default withNextra({
 		unoptimized: true,
 	},
 	output: 'export',
-	assetPrefix: './',
+	assetPrefix: '/',
 })

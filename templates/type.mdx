@@ -21,6 +21,18 @@
 
 <% Object.entries(it.type.slots).forEach(([name, type]) => { %>
 ### <%= name %>
+
+Type: `<%= type.typename %>`
+
+<% }) %>
+<% } %>
+
+<% if (it.type.points.length) { %>
+## Points
+
+<% it.type.points.forEach((type) => { %>
+### <%= type.typename %>
+
 Type: `<%= type.typename %>`
 
 <% }) %>

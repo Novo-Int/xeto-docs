@@ -52,18 +52,7 @@ export class Type extends BaseType {
 
 		const slotsData = props.slots as Record<string, object>
 		if (slotsData) {
-			this.slots = Object.entries(slotsData).reduce(
-				(slots, [name, props]) => {
-					slots[name] =
-						lib?.slots[name] ??
-						Type.make(props as Record<string, object>)
-
-					return slots
-				},
-				{} as {
-					[name: string]: Type
-				}
-			)
+			this.slots = this.slotTypes(slotsData, lib)
 		}
 	}
 
@@ -100,6 +89,19 @@ export class Type extends BaseType {
 		return res
 	}
 
+	get points(): Type[] {
+		const res = [] as Type[]
+		Object.entries(this.slots).forEach(([name, type]) => {
+			if (type.of === 'ph::Point') {
+				Object.values(type.slots).forEach((slot) => {
+					res.push(slot)
+				})
+			}
+		})
+
+		return res
+	}
+
 	get superTypes(): Type[] {
 		if (!this.lib) {
 			return []
@@ -109,14 +111,13 @@ export class Type extends BaseType {
 
 		if (base === 'sys::And' || base === 'sys::Or') {
 			if (Array.isArray(this.of)) {
-				const res = [] as Type[]
-				for (const of of this.of) {
-					const type = this.lib.getType(of)
+				return this.of.reduce((acc, of) => {
+					const type = this.lib?.getType(of)
 					if (type) {
-						res.push(type)
+						acc.push(type)
 					}
-				}
-				return res
+					return acc
+				}, [] as Type[])
 			} else {
 				const type = this.of ? this.lib.getType(this.of) : undefined
 				return type ? [type] : []
@@ -186,5 +187,24 @@ export class Type extends BaseType {
 			''
 
 		return name
+	}
+
+	private slotTypes(
+		slotsData: Record<string, object>,
+		lib: Lib | undefined
+	): { [name: string]: Type } {
+		return Object.entries(slotsData).reduce(
+			(slots, [name, props]) => {
+				const type =
+					lib?.slots[name] ??
+					Type.make(props as Record<string, object>)
+				slots[name] = type
+
+				return slots
+			},
+			{} as {
+				[name: string]: Type
+			}
+		)
 	}
 }

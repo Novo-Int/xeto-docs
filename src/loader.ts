@@ -6,6 +6,10 @@ export class LibsRegistry {
 	static make(data: string | Record<string, object>): LibsRegistry {
 		const db = new LibsRegistry()
 
+		Lib.resolveExternalLib = (name: string) => {
+			return db.libs.get(name)
+		}
+
 		return db.load(data)
 	}
 

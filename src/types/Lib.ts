@@ -1,4 +1,6 @@
-import { Type, getOptionalString, getString } from './Type'
+import { BaseType } from './BaseType'
+import { Type } from './Type'
+import { getOptionalString, getString } from './utils'
 
 /**
  * Organization type
@@ -11,7 +13,7 @@ export interface Org {
 /**
  * Library type
  */
-export class Lib extends Type {
+export class Lib extends BaseType {
 	/**
 	 * The name of the library
 	 */
@@ -32,6 +34,11 @@ export class Lib extends Type {
 	 */
 	depends?: Lib[]
 
+	/**
+	 * Resolve an external library
+	 */
+	static resolveExternalLib?: (name: string) => Lib | undefined
+
 	constructor(name: string, ver: string) {
 		super('sys::Lib')
 
@@ -40,7 +47,7 @@ export class Lib extends Type {
 	}
 
 	override fromProps(props: Record<string, object>): void {
-		super.fromProps(props, this)
+		super.fromProps(props)
 
 		if (props.org) {
 			const org = props.org as Record<string, object>
@@ -59,9 +66,26 @@ export class Lib extends Type {
 				this.depends?.push(lib)
 			})
 		}
+
+		const slotsData = props.slots as Record<string, object>
+		if (slotsData) {
+			this.slots = Object.entries(slotsData).reduce(
+				(slots, [name, props]) => {
+					slots[name] = Type.make(
+						props as Record<string, object>,
+						`${this.name}::${name}`,
+						this
+					)
+					return slots
+				},
+				{} as {
+					[name: string]: Type
+				}
+			)
+		}
 	}
 
-	static override make(props: Record<string, object>, name: string): Lib {
+	static make(props: Record<string, object>, name: string): Lib {
 		const version = getString('version', props)
 
 		const lib = new Lib(name, version)
@@ -75,7 +99,7 @@ export class Lib extends Type {
 
 		if (lib && type) {
 			if (lib !== this.name) {
-				return undefined
+				Lib.resolveExternalLib?.(lib)?.getType(name)
 			}
 			return this.slots[type]
 		} else {
@@ -87,7 +111,7 @@ export class Lib extends Type {
 		return Object.values(this.slots)
 	}
 
-	override get markers(): string[] {
+	get markers(): string[] {
 		const res = new Set<string>()
 
 		Object.values(this.slots).forEach((type) => {

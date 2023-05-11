@@ -9,7 +9,7 @@
 <% it.type.markers.forEach((name) => { %>
 <tr>
 <td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'><%= name %> </span></td>
-<td className='p-2 align-top'><%= it.hsDocs.get(name)?.replaceAll(/\n/g, ' ') %></td>
+<td className='p-2 align-top'><%= it.hsDocs.get(name)?.replaceAll(/\n/g, ' ') ?? '' %></td>
 </tr>
 <% }) %>
 </tbody>

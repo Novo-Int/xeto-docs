@@ -1,19 +1,11 @@
+import { BaseType } from './BaseType'
 import type { Lib } from './Lib'
+import { getOptionalString } from './utils'
 
 /**
  * The basic type definition for Xeto
  */
-export class Type {
-	/**
-	  The FQN of the type
-	 */
-	type?: string
-
-	/**
-	 * The documentation string
-	 */
-	doc?: string
-
+export class Type extends BaseType {
 	/**
 	 * Is and abstract type
 	 */
@@ -32,45 +24,46 @@ export class Type {
 	/**
 	 * Of a type, in case the type is generic
 	 */
-	of?: string
-
-	/**
-	 * List of slots this type has
-	 */
-	slots: { [name: string]: Type }
+	of?: string | string[]
 
 	/**
 	 * The library for this type
 	 */
 	lib?: Lib
 
-	/**
-	 * The file and line
-	 * location this type was defined
-	 */
-	loc?: string
-
 	constructor(name?: string, base?: string, lib?: Lib) {
-		this.type = name
+		super(name)
+
 		this.base = base
 		this.lib = lib
-
-		this.slots = {}
 	}
 
-	fromProps(props: Record<string, object>, lib?: Lib) {
-		this.of = getOptionalString('of', props)
+	override fromProps(props: Record<string, object>, lib?: Lib) {
+		super.fromProps(props)
 
-		this.doc = getOptionalString('doc', props)
+		if (props.ofs) {
+			this.of = props.ofs as string[]
+		} else {
+			this.of = getOptionalString('of', props)
+		}
 
 		this.isAbstract = getOptionalString('abstract', props) === 'marker'
 		this.isSealed = getOptionalString('sealed', props) === 'marker'
 
-		this.loc = getOptionalString('fileloc', props)
-
 		const slotsData = props.slots as Record<string, object>
 		if (slotsData) {
-			this.slots = makeSlots(slotsData, lib == (this as unknown), lib)
+			this.slots = Object.entries(slotsData).reduce(
+				(slots, [name, props]) => {
+					slots[name] =
+						lib?.slots[name] ??
+						Type.make(props as Record<string, object>)
+
+					return slots
+				},
+				{} as {
+					[name: string]: Type
+				}
+			)
 		}
 	}
 
@@ -107,20 +100,44 @@ export class Type {
 		return res
 	}
 
-	get superType(): Type | undefined {
+	get superTypes(): Type[] {
+		if (!this.lib) {
+			return []
+		}
+
 		const base = this.base
 
-		return base ? this.lib?.getType(base) : undefined
+		if (base === 'sys::And' || base === 'sys::Or') {
+			if (Array.isArray(this.of)) {
+				const res = [] as Type[]
+				for (const of of this.of) {
+					const type = this.lib.getType(of)
+					if (type) {
+						res.push(type)
+					}
+				}
+				return res
+			} else {
+				const type = this.of ? this.lib.getType(this.of) : undefined
+				return type ? [type] : []
+			}
+		}
+		const type = base ? this.lib.getType(base) : undefined
+		return type ? [type] : []
 	}
 
 	get allSuperTypes(): Type[] {
 		const list = new Map<string, Type>()
 
-		let st = this.superType
+		const st = this.superTypes
 
-		while (st) {
-			if (st.type) list.set(st.type, st)
-			st = st.superType
+		while (st.length > 0) {
+			const cur = st.pop()
+			if (!cur) continue
+
+			if (cur.type) list.set(cur.type, cur)
+
+			st.unshift(...cur.superTypes)
 		}
 
 		return [...list.values()]
@@ -170,61 +187,4 @@ export class Type {
 
 		return name
 	}
-}
-
-export function getString(key: string, props: Record<string, unknown>): string {
-	const val = props[key]
-
-	if (typeof val !== 'string') {
-		throw Error(
-			`Can't get string, found: '${val}', for key: '${key}' in context: '${props}'`
-		)
-	}
-
-	return val
-}
-
-export function getOptionalString(
-	key: string,
-	props: Record<string, unknown>
-): string | undefined {
-	const val = props[key]
-	if (!val) {
-		return undefined
-	}
-
-	if (typeof val !== 'string') {
-		throw Error(`Can't get string, found: '${val}', for key: '${key}'`)
-	}
-
-	return val
-}
-
-function makeSlots(
-	slotsData: Record<string, object>,
-	libSlot: boolean,
-	lib?: Lib
-): {
-	[name: string]: Type
-} {
-	return Object.entries(slotsData).reduce(
-		(slots, [name, props]) => {
-			if (libSlot) {
-				slots[name] = Type.make(
-					props as Record<string, object>,
-					`${lib?.name}::${name}`,
-					lib
-				)
-			} else {
-				slots[name] =
-					lib?.slots[name] ??
-					Type.make(props as Record<string, object>)
-			}
-
-			return slots
-		},
-		{} as {
-			[name: string]: Type
-		}
-	)
 }

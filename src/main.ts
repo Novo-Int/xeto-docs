@@ -4,6 +4,8 @@ import { Command } from 'commander'
 
 import { LibsRegistry } from './loader'
 import { haystackDocs } from './types/hs-defs'
+import { Lib } from './types/Lib'
+import { Type } from './types/Type'
 
 async function main() {
 	const hsDocs = await haystackDocs()
@@ -90,22 +92,12 @@ async function render({
 
 		console.log(`Generating lib: ${libName}`)
 
-		const libPage = Eta.render(libTemplate, lib ?? {})
-		await fs.mkdir(`${targetDir}/${libName}`, { recursive: true })
-		await fs.writeFile(`${targetDir}/${libName}.mdx`, libPage)
+		await renderLib(lib, libTemplate, targetDir)
 
 		for (const type of lib.types) {
-			const typePage = Eta.render(typeTemplate, { type, hsDocs } ?? {})
-
-			const path = `${targetDir}/${libName}/${type.fileName}`
-
-			await fs.mkdir(path, {
-				recursive: true,
-			})
-
 			console.log(`Generating type: ${type.typename}`)
 
-			await fs.writeFile(`${path}/${type.typename}.mdx`, typePage)
+			await renderType(typeTemplate, type, hsDocs, targetDir, libName)
 		}
 	}
 
@@ -114,6 +106,30 @@ async function render({
 			2
 		)}ms`
 	)
+}
+
+async function renderLib(lib: Lib, libTemplate: string, targetDir: string) {
+	const libPage = Eta.render(libTemplate, lib ?? {})
+	await fs.mkdir(`${targetDir}/${lib.name}`, { recursive: true })
+	await fs.writeFile(`${targetDir}/${lib.name}.mdx`, libPage)
+}
+
+async function renderType(
+	typeTemplate: string,
+	type: Type,
+	hsDocs: Map<string, string>,
+	targetDir: string,
+	libName: string
+) {
+	const typePage = Eta.render(typeTemplate, { type, hsDocs } ?? {})
+
+	const path = `${targetDir}/${libName}/${type.fileName}`
+
+	await fs.mkdir(path, {
+		recursive: true,
+	})
+
+	await fs.writeFile(`${path}/${type.typename}.mdx`, typePage)
 }
 
 main()

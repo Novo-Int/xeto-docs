@@ -146,19 +146,17 @@ async function renderType(
 		await fs.mkdir(typeFolder, {
 			recursive: true,
 		})
-		await renderSubtypes(type.subtypes, typeFolder, ops)
+		await renderSubtypes(type.subtypes, typeFolder)
 	}
 }
 
-async function renderSubtypes(types: Type[], path: string, ops: ArgOps) {
+async function renderSubtypes(types: Type[], path: string) {
 	const meta = {} as Record<string, unknown>
-
-	const { baseUrl } = ops
 
 	for (const type of types) {
 		meta[type.typename] = {
 			title: type.typename,
-			href: `${baseUrl}${type.link}`,
+			href: `/${type.link}`,
 		}
 	}
 	await fs.writeFile(`${path}/_meta.json`, JSON.stringify(meta, null, 2))

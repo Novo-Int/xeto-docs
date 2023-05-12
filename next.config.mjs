@@ -18,4 +18,5 @@ export default withNextra({
 	},
 	output: 'export',
 	assetPrefix: BASE_URL,
+	basePath: BASE_URL,
 })

@@ -1,3 +1,3 @@
 module.exports = {
-	BASE_URL: process.env.NODE_ENV === 'production' ? '/xeto-docs/' : '/',
+	BASE_URL: process.env.NEXTRA_BASE_URL ?? '',
 }

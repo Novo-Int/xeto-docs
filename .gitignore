@@ -6,3 +6,7 @@ node_modules
 .next
 out
 pages/**/**
+pages/**/**
+!pages/meta.json
+!pages/index.mdx
+!pages/_app.mdx

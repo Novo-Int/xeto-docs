@@ -7,6 +7,7 @@ import { haystackDocs } from './types/hs-defs'
 import { Lib } from './types/Lib'
 import { Type } from './types/Type'
 import { BASE_URL } from './defaults.js'
+import { loadTemplates } from './templates'
 
 type ArgOps = {
 	ast: string
@@ -59,18 +60,6 @@ async function main() {
 			command.showHelpAfterError()
 		}
 	}
-}
-
-async function loadTemplates() {
-	const libTemplate = await fs.readFile('./templates/lib.mdx', {
-		encoding: 'utf-8',
-	})
-
-	const typeTemplate = await fs.readFile('./templates/type.mdx', {
-		encoding: 'utf-8',
-	})
-
-	return [libTemplate, typeTemplate]
 }
 
 async function render({

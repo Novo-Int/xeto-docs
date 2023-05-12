@@ -91,7 +91,7 @@ export class Type extends BaseType {
 
 	get points(): Type[] {
 		const res = [] as Type[]
-		Object.entries(this.slots).forEach(([name, type]) => {
+		Object.values(this.slots).forEach((type) => {
 			if (type.of === 'ph::Point') {
 				Object.values(type.slots).forEach((slot) => {
 					res.push(slot)

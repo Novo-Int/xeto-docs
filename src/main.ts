@@ -6,6 +6,7 @@ import { LibsRegistry } from './loader'
 import { haystackDocs } from './types/hs-defs'
 import { Lib } from './types/Lib'
 import { Type } from './types/Type'
+import { BASE_URL } from './defaults.js'
 
 type ArgOps = {
 	ast: string
@@ -38,7 +39,7 @@ async function main() {
 
 			const templates = await loadTemplates()
 
-			ops.baseUrl = ops.baseUrl ?? '/'
+			ops.baseUrl = ops.baseUrl ?? BASE_URL
 
 			await render({
 				db,
@@ -53,8 +54,8 @@ async function main() {
 		command.showHelpAfterError()
 	} else {
 		try {
-			const ops = command.parse()
-		} catch (error) {
+			command.parse()
+		} catch {
 			command.showHelpAfterError()
 		}
 	}
@@ -126,7 +127,10 @@ async function renderType(
 	ops: ArgOps,
 	libName: string
 ) {
-	const typePage = Eta.render(typeTemplate, { type, hsDocs } ?? {})
+	const typePage = Eta.render(
+		typeTemplate,
+		{ type, hsDocs, baseUrl: ops.baseUrl } ?? {}
+	)
 	const { targetDir } = ops
 
 	const path = `${targetDir}/${libName}/${type.fileName}`

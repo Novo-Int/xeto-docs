@@ -2,7 +2,6 @@
 	"name": "xeto-docs",
 	"version": "1.0.0",
 	"description": "",
-	"main": "jest.config.js",
 	"scripts": {
 		"lint": "eslint --ext .ts .",
 		"format": "prettier-eslint \"./**/*.ts\" --write",

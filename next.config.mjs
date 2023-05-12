@@ -1,5 +1,8 @@
 import nextra from 'nextra'
 
+import defaults from './src/defaults.js'
+const { BASE_URL } = defaults
+
 const withNextra = nextra({
 	theme: 'nextra-theme-docs',
 	themeConfig: './theme.config.jsx',
@@ -14,5 +17,5 @@ export default withNextra({
 		unoptimized: true,
 	},
 	output: 'export',
-	assetPrefix: process.env.NODE_ENV === 'production' ? '/xeto-docs/' : '/',
+	assetPrefix: BASE_URL,
 })

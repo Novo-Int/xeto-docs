@@ -28,8 +28,10 @@ jobs:
 
             - name: install
               run: npm ci
+            - name: gen
+              run: NODE_ENV=production npm run gen
             - name: build
-              run: NODE_ENV=production npm run build
+              run: npm run build
             - name: upload
               uses: actions/upload-pages-artifact@v1.0.4
               with:

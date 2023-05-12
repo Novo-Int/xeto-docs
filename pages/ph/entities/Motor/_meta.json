@@ -1,0 +1,10 @@
+{
+  "FanMotor": {
+    "title": "FanMotor",
+    "href": "/ph/entities/FanMotor"
+  },
+  "PumpMotor": {
+    "title": "PumpMotor",
+    "href": "/ph/entities/PumpMotor"
+  }
+}

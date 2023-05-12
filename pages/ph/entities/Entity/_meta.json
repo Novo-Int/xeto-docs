@@ -1,0 +1,38 @@
+{
+  "Device": {
+    "title": "Device",
+    "href": "/ph/entities/Device"
+  },
+  "Equip": {
+    "title": "Equip",
+    "href": "/ph/entities/Equip"
+  },
+  "Network": {
+    "title": "Network",
+    "href": "/ph/entities/Network"
+  },
+  "Point": {
+    "title": "Point",
+    "href": "/ph/entities/Point"
+  },
+  "PointGroup": {
+    "title": "PointGroup",
+    "href": "/ph/entities/PointGroup"
+  },
+  "Site": {
+    "title": "Site",
+    "href": "/ph/entities/Site"
+  },
+  "Space": {
+    "title": "Space",
+    "href": "/ph/entities/Space"
+  },
+  "System": {
+    "title": "System",
+    "href": "/ph/entities/System"
+  },
+  "WeatherStation": {
+    "title": "WeatherStation",
+    "href": "/ph/entities/WeatherStation"
+  }
+}

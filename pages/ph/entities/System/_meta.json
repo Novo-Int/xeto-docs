@@ -1,0 +1,18 @@
+{
+  "AirSystem": {
+    "title": "AirSystem",
+    "href": "/ph/entities/AirSystem"
+  },
+  "ElecSystem": {
+    "title": "ElecSystem",
+    "href": "/ph/entities/ElecSystem"
+  },
+  "RefrigSystem": {
+    "title": "RefrigSystem",
+    "href": "/ph/entities/RefrigSystem"
+  },
+  "WaterSystem": {
+    "title": "WaterSystem",
+    "href": "/ph/entities/WaterSystem"
+  }
+}

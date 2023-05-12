@@ -1,0 +1,10 @@
+{
+  "AcElecMeter": {
+    "title": "AcElecMeter",
+    "href": "/ph/entities/AcElecMeter"
+  },
+  "DcElecMeter": {
+    "title": "DcElecMeter",
+    "href": "/ph/entities/DcElecMeter"
+  }
+}

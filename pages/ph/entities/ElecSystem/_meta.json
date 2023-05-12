@@ -1,0 +1,10 @@
+{
+  "EvseSystem": {
+    "title": "EvseSystem",
+    "href": "/ph/entities/EvseSystem"
+  },
+  "LightingSystem": {
+    "title": "LightingSystem",
+    "href": "/ph/entities/LightingSystem"
+  }
+}

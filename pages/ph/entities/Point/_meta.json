@@ -1,0 +1,18 @@
+{
+  "CurPoint": {
+    "title": "CurPoint",
+    "href": "/ph/entities/CurPoint"
+  },
+  "HisPoint": {
+    "title": "HisPoint",
+    "href": "/ph/entities/HisPoint"
+  },
+  "WeatherPoint": {
+    "title": "WeatherPoint",
+    "href": "/ph/entities/WeatherPoint"
+  },
+  "WritablePoint": {
+    "title": "WritablePoint",
+    "href": "/ph/entities/WritablePoint"
+  }
+}

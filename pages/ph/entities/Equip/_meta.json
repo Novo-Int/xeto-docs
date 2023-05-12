@@ -1,0 +1,122 @@
+{
+  "Actuator": {
+    "title": "Actuator",
+    "href": "/ph/entities/Actuator"
+  },
+  "AirHandlingEquip": {
+    "title": "AirHandlingEquip",
+    "href": "/ph/entities/AirHandlingEquip"
+  },
+  "AirTerminalUnit": {
+    "title": "AirTerminalUnit",
+    "href": "/ph/entities/AirTerminalUnit"
+  },
+  "Assembly": {
+    "title": "Assembly",
+    "href": "/ph/entities/Assembly"
+  },
+  "Ates": {
+    "title": "Ates",
+    "href": "/ph/entities/Ates"
+  },
+  "Battery": {
+    "title": "Battery",
+    "href": "/ph/entities/Battery"
+  },
+  "Boiler": {
+    "title": "Boiler",
+    "href": "/ph/entities/Boiler"
+  },
+  "Cable": {
+    "title": "Cable",
+    "href": "/ph/entities/Cable"
+  },
+  "Chiller": {
+    "title": "Chiller",
+    "href": "/ph/entities/Chiller"
+  },
+  "Circuit": {
+    "title": "Circuit",
+    "href": "/ph/entities/Circuit"
+  },
+  "Conduit": {
+    "title": "Conduit",
+    "href": "/ph/entities/Conduit"
+  },
+  "CoolingTower": {
+    "title": "CoolingTower",
+    "href": "/ph/entities/CoolingTower"
+  },
+  "EvseEquip": {
+    "title": "EvseEquip",
+    "href": "/ph/entities/EvseEquip"
+  },
+  "FlowInverter": {
+    "title": "FlowInverter",
+    "href": "/ph/entities/FlowInverter"
+  },
+  "FumeHood": {
+    "title": "FumeHood",
+    "href": "/ph/entities/FumeHood"
+  },
+  "HeatExchanger": {
+    "title": "HeatExchanger",
+    "href": "/ph/entities/HeatExchanger"
+  },
+  "HumidifierEquip": {
+    "title": "HumidifierEquip",
+    "href": "/ph/entities/HumidifierEquip"
+  },
+  "Luminaire": {
+    "title": "Luminaire",
+    "href": "/ph/entities/Luminaire"
+  },
+  "Meter": {
+    "title": "Meter",
+    "href": "/ph/entities/Meter"
+  },
+  "Motor": {
+    "title": "Motor",
+    "href": "/ph/entities/Motor"
+  },
+  "Panel": {
+    "title": "Panel",
+    "href": "/ph/entities/Panel"
+  },
+  "Plant": {
+    "title": "Plant",
+    "href": "/ph/entities/Plant"
+  },
+  "Rack": {
+    "title": "Rack",
+    "href": "/ph/entities/Rack"
+  },
+  "RadiantEquip": {
+    "title": "RadiantEquip",
+    "href": "/ph/entities/RadiantEquip"
+  },
+  "Tank": {
+    "title": "Tank",
+    "href": "/ph/entities/Tank"
+  },
+  "Thermostat": {
+    "title": "Thermostat",
+    "href": "/ph/entities/Thermostat"
+  },
+  "Ups": {
+    "title": "Ups",
+    "href": "/ph/entities/Ups"
+  },
+  "VerticalTransport": {
+    "title": "VerticalTransport",
+    "href": "/ph/entities/VerticalTransport"
+  },
+  "VrfEquip": {
+    "title": "VrfEquip",
+    "href": "/ph/entities/VrfEquip"
+  },
+  "Well": {
+    "title": "Well",
+    "href": "/ph/entities/Well"
+  }
+}

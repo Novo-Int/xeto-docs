@@ -1,0 +1,18 @@
+{
+  "DataCenter": {
+    "title": "DataCenter",
+    "href": "/ph/entities/DataCenter"
+  },
+  "Floor": {
+    "title": "Floor",
+    "href": "/ph/entities/Floor"
+  },
+  "Room": {
+    "title": "Room",
+    "href": "/ph/entities/Room"
+  },
+  "ZoneSpace": {
+    "title": "ZoneSpace",
+    "href": "/ph/entities/ZoneSpace"
+  }
+}

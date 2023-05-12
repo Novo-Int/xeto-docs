@@ -1,0 +1,14 @@
+{
+  "AirQualityZonePoints": {
+    "title": "AirQualityZonePoints",
+    "href": "/ph/entities/AirQualityZonePoints"
+  },
+  "HvacZonePoints": {
+    "title": "HvacZonePoints",
+    "href": "/ph/entities/HvacZonePoints"
+  },
+  "LightingZonePoints": {
+    "title": "LightingZonePoints",
+    "href": "/ph/entities/LightingZonePoints"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "DamperActuator": {
+    "title": "DamperActuator",
+    "href": "/ph/entities/DamperActuator"
+  },
+  "ValveActuator": {
+    "title": "ValveActuator",
+    "href": "/ph/entities/ValveActuator"
+  }
+}

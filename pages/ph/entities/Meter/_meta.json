@@ -1,0 +1,10 @@
+{
+  "ElecMeter": {
+    "title": "ElecMeter",
+    "href": "/ph/entities/ElecMeter"
+  },
+  "FlowMeter": {
+    "title": "FlowMeter",
+    "href": "/ph/entities/FlowMeter"
+  }
+}

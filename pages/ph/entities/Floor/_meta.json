@@ -1,0 +1,14 @@
+{
+  "GroundFloor": {
+    "title": "GroundFloor",
+    "href": "/ph/entities/GroundFloor"
+  },
+  "RoofFloor": {
+    "title": "RoofFloor",
+    "href": "/ph/entities/RoofFloor"
+  },
+  "SubterraneanFloor": {
+    "title": "SubterraneanFloor",
+    "href": "/ph/entities/SubterraneanFloor"
+  }
+}

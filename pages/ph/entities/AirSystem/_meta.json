@@ -1,0 +1,14 @@
+{
+  "AirConditioningSystem": {
+    "title": "AirConditioningSystem",
+    "href": "/ph/entities/AirConditioningSystem"
+  },
+  "AirExhaustSystem": {
+    "title": "AirExhaustSystem",
+    "href": "/ph/entities/AirExhaustSystem"
+  },
+  "AirVentilationSystem": {
+    "title": "AirVentilationSystem",
+    "href": "/ph/entities/AirVentilationSystem"
+  }
+}

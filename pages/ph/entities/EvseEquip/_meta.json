@@ -1,0 +1,14 @@
+{
+  "EvseAssembly": {
+    "title": "EvseAssembly",
+    "href": "/ph/entities/EvseAssembly"
+  },
+  "EvseCable": {
+    "title": "EvseCable",
+    "href": "/ph/entities/EvseCable"
+  },
+  "EvsePort": {
+    "title": "EvsePort",
+    "href": "/ph/entities/EvsePort"
+  }
+}

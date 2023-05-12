@@ -1,0 +1,14 @@
+{
+  "Elevator": {
+    "title": "Elevator",
+    "href": "/ph/entities/Elevator"
+  },
+  "Escalator": {
+    "title": "Escalator",
+    "href": "/ph/entities/Escalator"
+  },
+  "MovingWalkway": {
+    "title": "MovingWalkway",
+    "href": "/ph/entities/MovingWalkway"
+  }
+}

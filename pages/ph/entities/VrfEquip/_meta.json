@@ -1,0 +1,14 @@
+{
+  "BranchSelector": {
+    "title": "BranchSelector",
+    "href": "/ph/entities/BranchSelector"
+  },
+  "VrfIndoorUnit": {
+    "title": "VrfIndoorUnit",
+    "href": "/ph/entities/VrfIndoorUnit"
+  },
+  "VrfOutdoorUnit": {
+    "title": "VrfOutdoorUnit",
+    "href": "/ph/entities/VrfOutdoorUnit"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "ControlsPanel": {
+    "title": "ControlsPanel",
+    "href": "/ph/entities/ControlsPanel"
+  },
+  "ElecPanel": {
+    "title": "ElecPanel",
+    "href": "/ph/entities/ElecPanel"
+  }
+}

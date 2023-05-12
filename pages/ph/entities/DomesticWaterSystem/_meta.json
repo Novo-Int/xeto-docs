@@ -1,0 +1,10 @@
+{
+  "DomesticColdWaterSystem": {
+    "title": "DomesticColdWaterSystem",
+    "href": "/ph/entities/DomesticColdWaterSystem"
+  },
+  "DomesticHotWaterSystem": {
+    "title": "DomesticHotWaterSystem",
+    "href": "/ph/entities/DomesticHotWaterSystem"
+  }
+}

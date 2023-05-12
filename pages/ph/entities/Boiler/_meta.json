@@ -1,0 +1,10 @@
+{
+  "HotWaterBoiler": {
+    "title": "HotWaterBoiler",
+    "href": "/ph/entities/HotWaterBoiler"
+  },
+  "SteamBoiler": {
+    "title": "SteamBoiler",
+    "href": "/ph/entities/SteamBoiler"
+  }
+}

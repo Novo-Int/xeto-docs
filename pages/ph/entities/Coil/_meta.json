@@ -1,0 +1,10 @@
+{
+  "CoolingCoil": {
+    "title": "CoolingCoil",
+    "href": "/ph/entities/CoolingCoil"
+  },
+  "HeatingCoil": {
+    "title": "HeatingCoil",
+    "href": "/ph/entities/HeatingCoil"
+  }
+}

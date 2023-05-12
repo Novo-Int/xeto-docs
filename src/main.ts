@@ -7,6 +7,12 @@ import { haystackDocs } from './types/hs-defs'
 import { Lib } from './types/Lib'
 import { Type } from './types/Type'
 
+type ArgOps = {
+	ast: string
+	targetDir: string
+	baseUrl: string
+}
+
 async function main() {
 	const hsDocs = await haystackDocs()
 	const command = new Command()
@@ -18,32 +24,30 @@ async function main() {
 			'-t, --targetDir <string>',
 			'Location where to place the generated files.'
 		)
+		.option(
+			'-b, --baseUrl <string>',
+			'The base url to be used when generating links.'
+		)
 		.command('test', 'The library names to generate the docs for.')
 		.arguments('[libs...]')
-		.action(
-			async (
-				libs: string[],
-				ops: {
-					ast: string
-					targetDir: string
-				}
-			) => {
-				const json = await fs.readFile(ops.ast, {
-					encoding: 'utf-8',
-				})
-				const db = LibsRegistry.make(json)
+		.action(async (libs: string[], ops: ArgOps) => {
+			const json = await fs.readFile(ops.ast, {
+				encoding: 'utf-8',
+			})
+			const db = LibsRegistry.make(json)
 
-				const templates = await loadTemplates()
+			const templates = await loadTemplates()
 
-				await render({
-					db,
-					libs,
-					templates,
-					targetDir: ops.targetDir,
-					hsDocs,
-				})
-			}
-		)
+			ops.baseUrl = ops.baseUrl ?? '/'
+
+			await render({
+				db,
+				libs,
+				templates,
+				ops,
+				hsDocs,
+			})
+		})
 
 	if (!process.argv.length) {
 		command.showHelpAfterError()
@@ -72,16 +76,17 @@ async function render({
 	db,
 	libs,
 	templates,
-	targetDir,
+	ops,
 	hsDocs,
 }: {
 	db: LibsRegistry
 	libs: string[]
 	templates: string[]
 	hsDocs: Map<string, string>
-	targetDir: string
+	ops: ArgOps
 }) {
 	const [libTemplate, typeTemplate] = templates
+	const { targetDir } = ops
 
 	const start = performance.now()
 
@@ -97,7 +102,7 @@ async function render({
 		for (const type of lib.types) {
 			console.log(`Generating type: ${type.typename}`)
 
-			await renderType(typeTemplate, type, hsDocs, targetDir, libName)
+			await renderType(typeTemplate, type, hsDocs, ops, libName)
 		}
 	}
 
@@ -118,10 +123,11 @@ async function renderType(
 	typeTemplate: string,
 	type: Type,
 	hsDocs: Map<string, string>,
-	targetDir: string,
+	ops: ArgOps,
 	libName: string
 ) {
 	const typePage = Eta.render(typeTemplate, { type, hsDocs } ?? {})
+	const { targetDir } = ops
 
 	const path = `${targetDir}/${libName}/${type.fileName}`
 
@@ -130,6 +136,28 @@ async function renderType(
 	})
 
 	await fs.writeFile(`${path}/${type.typename}.mdx`, typePage)
+
+	if (type.subtypes.length > 0) {
+		const typeFolder = `${path}/${type.typename}`
+		await fs.mkdir(typeFolder, {
+			recursive: true,
+		})
+		await renderSubtypes(type.subtypes, typeFolder, ops)
+	}
+}
+
+async function renderSubtypes(types: Type[], path: string, ops: ArgOps) {
+	const meta = {} as Record<string, unknown>
+
+	const { baseUrl } = ops
+
+	for (const type of types) {
+		meta[type.typename] = {
+			title: type.typename,
+			href: `${baseUrl}${type.link}`,
+		}
+	}
+	await fs.writeFile(`${path}/_meta.json`, JSON.stringify(meta, null, 2))
 }
 
 main()

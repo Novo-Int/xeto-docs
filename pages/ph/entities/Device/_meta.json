@@ -1,0 +1,22 @@
+{
+  "Computer": {
+    "title": "Computer",
+    "href": "/ph/entities/Computer"
+  },
+  "Controller": {
+    "title": "Controller",
+    "href": "/ph/entities/Controller"
+  },
+  "NetworkingDevice": {
+    "title": "NetworkingDevice",
+    "href": "/ph/entities/NetworkingDevice"
+  },
+  "Phone": {
+    "title": "Phone",
+    "href": "/ph/entities/Phone"
+  },
+  "Tablet": {
+    "title": "Tablet",
+    "href": "/ph/entities/Tablet"
+  }
+}

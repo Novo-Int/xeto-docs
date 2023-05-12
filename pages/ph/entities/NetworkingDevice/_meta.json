@@ -1,0 +1,10 @@
+{
+  "NetworkingRouter": {
+    "title": "NetworkingRouter",
+    "href": "/ph/entities/NetworkingRouter"
+  },
+  "NetworkingSwitch": {
+    "title": "NetworkingSwitch",
+    "href": "/ph/entities/NetworkingSwitch"
+  }
+}

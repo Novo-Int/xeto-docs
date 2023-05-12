@@ -189,6 +189,10 @@ export class Type extends BaseType {
 		return name
 	}
 
+	get link(): string {
+		return `${this.libName}/${this.fileName}/${this.typename}`
+	}
+
 	private slotTypes(
 		slotsData: Record<string, object>,
 		lib: Lib | undefined

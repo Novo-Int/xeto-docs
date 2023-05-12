@@ -1,0 +1,10 @@
+{
+  "HvacZoneSpace": {
+    "title": "HvacZoneSpace",
+    "href": "/ph/entities/HvacZoneSpace"
+  },
+  "LightingZoneSpace": {
+    "title": "LightingZoneSpace",
+    "href": "/ph/entities/LightingZoneSpace"
+  }
+}

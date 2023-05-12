@@ -1,0 +1,10 @@
+{
+  "Laptop": {
+    "title": "Laptop",
+    "href": "/ph/entities/Laptop"
+  },
+  "ServerComputer": {
+    "title": "ServerComputer",
+    "href": "/ph/entities/ServerComputer"
+  }
+}

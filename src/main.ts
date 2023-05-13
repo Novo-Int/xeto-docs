@@ -127,39 +127,39 @@ async function renderType(
 	ops: ArgOps,
 	libName: string
 ) {
-	const typePage = Eta.render(
-		typeTemplate,
-		{ type, hsDocs, baseUrl: ops.baseUrl } ?? {}
-	)
 	const { targetDir } = ops
 
 	const path = `${targetDir}/${libName}/${type.fileName}`
-
 	await fs.mkdir(path, {
 		recursive: true,
 	})
 
+	await renderTypeImpl(path, type, typeTemplate, hsDocs, ops)
+}
+
+async function renderTypeImpl(
+	path: string,
+	type: Type,
+	typeTemplate: string,
+	hsDocs: Map<string, string>,
+	ops: ArgOps
+) {
+	const typePage = Eta.render(
+		typeTemplate,
+		{ type, hsDocs, baseUrl: ops.baseUrl } ?? {}
+	)
+
 	await fs.writeFile(`${path}/${type.typename}.mdx`, typePage)
 
 	if (type.subtypes.length > 0) {
-		const typeFolder = `${path}/${type.typename}`
-		await fs.mkdir(typeFolder, {
-			recursive: true,
-		})
-		await renderSubtypes(type.subtypes, typeFolder)
-	}
-}
-
-async function renderSubtypes(types: Type[], path: string) {
-	const meta = {} as Record<string, unknown>
-
-	for (const type of types) {
-		meta[type.typename] = {
-			title: type.typename,
-			href: `/${type.link}`,
+		for (const subt of type.subtypes) {
+			const typeFolder = `${path}/${type.typename}`
+			await fs.mkdir(typeFolder, {
+				recursive: true,
+			})
+			await renderTypeImpl(typeFolder, subt, typeTemplate, hsDocs, ops)
 		}
 	}
-	await fs.writeFile(`${path}/_meta.json`, JSON.stringify(meta, null, 2))
 }
 
 main()

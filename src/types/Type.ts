@@ -171,6 +171,9 @@ export class Type extends BaseType {
 		return res
 	}
 
+	/**
+	 * Get the resource slots for this type
+	 */
 	get resources(): Resource[] {
 		const res = [] as Resource[]
 		Object.entries(this.slots).forEach(([slotName, type]) => {

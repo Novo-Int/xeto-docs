@@ -193,7 +193,7 @@ async function renderFromSummary({
 
 		for (const [equipVariant, entries] of Object.entries(summary.equips)) {
 			console.log(`Generating equip summary: ${equipVariant}`)
-			for (const [typeName, type] of Object.entries(entries)) {
+			for (const type of Object.values(entries)) {
 				await renderTypeImpl(
 					equipsPath,
 					type,

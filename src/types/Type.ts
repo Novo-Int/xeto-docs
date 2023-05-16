@@ -89,14 +89,30 @@ export class Type extends BaseType {
 		return res
 	}
 
+	get allMarkers(): string[] {
+		const res = new Set(...this.markers)
+		this.allSuperTypes.forEach((type) => {
+			type.markers.forEach((m) => res.add(m))
+		})
+
+		return [...res]
+	}
+
 	get points(): Type[] {
 		const res = [] as Type[]
 		Object.values(this.slots).forEach((type) => {
-			if (type.of === 'ph::Point') {
-				Object.values(type.slots).forEach((slot) => {
-					res.push(slot)
-				})
+			if (type.of !== 'ph::Point') {
+				return
 			}
+
+			Object.values(type.slots).forEach((slot) => {
+				const point = slot.type
+					? this.lib?.getType(slot.type)
+					: undefined
+				if (point) {
+					res.push(point)
+				}
+			})
 		})
 
 		return res

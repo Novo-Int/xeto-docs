@@ -68,7 +68,10 @@ export async function typeSummary(
 }
 
 function collectEquip(type: Type, summary: LibSummary) {
-	if (type.base !== 'ph::Equip') {
+	if (
+		type.base !== 'ph::Equip' &&
+		!type.allSuperTypes.find((st) => st.base === 'ph::Equip')
+	) {
 		return
 	}
 
@@ -98,7 +101,10 @@ function collectEquip(type: Type, summary: LibSummary) {
 }
 
 function collectPoints(type: Type, summary: TypeSummary) {
-	if (type.base !== 'ph::Point') {
+	if (
+		type.base !== 'ph::Point' &&
+		!type.allSuperTypes.find((st) => st.base === 'ph::Point')
+	) {
 		return
 	}
 

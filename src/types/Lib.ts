@@ -99,7 +99,7 @@ export class Lib extends BaseType {
 
 		if (lib && type) {
 			if (lib !== this.name) {
-				Lib.resolveExternalLib?.(lib)?.getType(name)
+				return Lib.resolveExternalLib?.(lib)?.getType(name)
 			}
 			return this.slots[type]
 		} else {

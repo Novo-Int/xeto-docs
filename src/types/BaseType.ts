@@ -29,6 +29,12 @@ export class BaseType {
 		this.slots = {}
 	}
 
+	/**
+	 * Create a new type from a set of properties
+	 * @param props The properties to create the type from
+	 * @returns The type
+	 * @throws If the type is not valid
+	 */
 	fromProps(props: Record<string, object>): void {
 		this.doc = getOptionalString('doc', props)
 		this.loc = getOptionalString('fileloc', props)

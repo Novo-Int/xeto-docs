@@ -1,5 +1,6 @@
 import { BaseType } from './BaseType'
 import type { Lib } from './Lib'
+import { Resource } from './Resource'
 import { getOptionalString } from './utils'
 
 /**
@@ -31,6 +32,18 @@ export class Type extends BaseType {
 	 */
 	lib?: Lib
 
+	/**
+	 * Optional value
+	 */
+	val?: unknown
+
+	/**
+	 * Create a new type
+	 * @param name The name of the type
+	 * @param base The base type
+	 * @param lib The library for this type
+	 * @returns The type
+	 */
 	constructor(name?: string, base?: string, lib?: Lib) {
 		super(name)
 
@@ -50,12 +63,21 @@ export class Type extends BaseType {
 		this.isAbstract = getOptionalString('abstract', props) === 'marker'
 		this.isSealed = getOptionalString('sealed', props) === 'marker'
 
+		this.val = props.val
+
 		const slotsData = props.slots as Record<string, object>
 		if (slotsData) {
 			this.slots = this.slotTypes(slotsData, lib)
 		}
 	}
 
+	/**
+	 * Make a type from a set of properties
+	 * @param props The properties to create the type from
+	 * @param defaultName The default name of the type
+	 * @param lib The library for this type
+	 * @returns The type
+	 */
 	static make(
 		props: Record<string, object>,
 		defaultName?: string,
@@ -70,14 +92,23 @@ export class Type extends BaseType {
 		return type
 	}
 
+	/**
+	 * Get the library name
+	 */
 	get libName(): string {
 		return this.type?.split('::')?.[0] ?? ''
 	}
 
+	/**
+	 * Get the type name
+	 */
 	get typename(): string {
 		return this.type?.split('::')?.[1] ?? ''
 	}
 
+	/**
+	 * Get the markers for this type
+	 */
 	get markers(): string[] {
 		const res = [] as string[]
 		Object.entries(this.slots).forEach(([name, type]) => {
@@ -89,6 +120,9 @@ export class Type extends BaseType {
 		return res
 	}
 
+	/**
+	 * Get the markers for this type and all super types
+	 */
 	get allMarkers(): string[] {
 		const res = new Set(...this.markers)
 		this.allSuperTypes.forEach((type) => {
@@ -98,6 +132,9 @@ export class Type extends BaseType {
 		return [...res]
 	}
 
+	/**
+	 * Get the point slots for this type
+	 */
 	get points(): Type[] {
 		const res = [] as Type[]
 		Object.values(this.slots).forEach((type) => {
@@ -118,6 +155,9 @@ export class Type extends BaseType {
 		return res
 	}
 
+	/**
+	 * Get the equip slots for this type
+	 */
 	get equips(): Type[] {
 		const res = [] as Type[]
 		Object.values(this.slots).forEach((type) => {
@@ -131,6 +171,29 @@ export class Type extends BaseType {
 		return res
 	}
 
+	get resources(): Resource[] {
+		const res = [] as Resource[]
+		Object.entries(this.slots).forEach(([slotName, type]) => {
+			if (slotName !== 'resources' && type.type !== 'ph::Dict') {
+				return
+			}
+
+			Object.values(type.slots).forEach((slot) => {
+				const resType = slot.type
+					? this.lib?.getType(slot.type)
+					: undefined
+				if (resType) {
+					res.push(new Resource(resType, slot.slots))
+				}
+			})
+		})
+
+		return res
+	}
+
+	/**
+	 * Get the direct super types for this type
+	 */
 	get superTypes(): Type[] {
 		if (!this.lib) {
 			return []
@@ -156,6 +219,9 @@ export class Type extends BaseType {
 		return type ? [type] : []
 	}
 
+	/**
+	 * Get all super types for this type
+	 */
 	get allSuperTypes(): Type[] {
 		const list = new Map<string, Type>()
 
@@ -173,6 +239,9 @@ export class Type extends BaseType {
 		return [...list.values()]
 	}
 
+	/**
+	 * Get the direct sub types for this type
+	 */
 	get subtypes(): Type[] {
 		const list = new Map<string, Type>()
 
@@ -185,6 +254,9 @@ export class Type extends BaseType {
 		return [...list.values()]
 	}
 
+	/**
+	 * Get all sub types for this type
+	 */
 	get allSubtypes(): Type[] {
 		const list = new Map<string, Type>()
 
@@ -218,6 +290,9 @@ export class Type extends BaseType {
 		return name
 	}
 
+	/**
+	 * Gets the link to the type
+	 */
 	get link(): string {
 		return `${this.libName}/${this.fileName}/${this.typename}`
 	}

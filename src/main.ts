@@ -88,7 +88,6 @@ async function render({
 	ops: ArgOps
 }) {
 	const [libTemplate, typeTemplate] = templates
-	const { targetDir } = ops
 
 	const start = performance.now()
 

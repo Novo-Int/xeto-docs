@@ -1,0 +1,18 @@
+{
+	"index": {
+		"title": "Home",
+		"type": "page"
+	},
+	"specs": {
+		"title": "Specs",
+		"type": "page"
+	},
+	"equips": {
+		"title": "Equipments",
+		"type": "page"
+	},
+	"points": {
+		"title": "Points",
+		"type": "page"
+	}
+}

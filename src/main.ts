@@ -1,12 +1,13 @@
+import { Command } from 'commander'
 import Eta from 'eta'
 import fs from 'fs/promises'
-import { Command } from 'commander'
 
-import { LibsRegistry } from './loader'
-import { haystackDocs } from './types/hs-defs'
-import { Lib } from './types/Lib'
-import { Type } from './types/Type'
 import { BASE_URL } from './defaults.js'
+import { LibsRegistry } from './loader'
+import { Lib } from './types/Lib'
+import { LibSummary, librarySummary } from './types/Summary'
+import { Type } from './types/Type'
+import { haystackDocs } from './types/hs-defs'
 
 type ArgOps = {
 	ast: string
@@ -61,7 +62,7 @@ async function main() {
 	}
 }
 
-async function loadTemplates() {
+async function loadTemplates(): Promise<string[]> {
 	const libTemplate = await fs.readFile('./templates/lib.mdx', {
 		encoding: 'utf-8',
 	})
@@ -98,7 +99,10 @@ async function render({
 
 		console.log(`Generating lib: ${libName}`)
 
-		await renderLib(lib, libTemplate, targetDir)
+		await renderLib(lib, libTemplate, ops)
+
+		const summary = await librarySummary(lib)
+		await renderFromSummary({ summary, lib, templates, ops, hsDocs })
 
 		for (const type of lib.types) {
 			console.log(`Generating type: ${type.typename}`)
@@ -114,8 +118,12 @@ async function render({
 	)
 }
 
-async function renderLib(lib: Lib, libTemplate: string, targetDir: string) {
+async function renderLib(lib: Lib, libTemplate: string, ops: ArgOps) {
 	const libPage = Eta.render(libTemplate, lib ?? {})
+
+	const targetDir = `${ops.targetDir}/specs`
+	await fs.mkdir(targetDir, { recursive: true })
+
 	await fs.mkdir(`${targetDir}/${lib.name}`, { recursive: true })
 	await fs.writeFile(`${targetDir}/${lib.name}.mdx`, libPage)
 }
@@ -129,7 +137,7 @@ async function renderType(
 ) {
 	const { targetDir } = ops
 
-	const path = `${targetDir}/${libName}/${type.fileName}`
+	const path = `${targetDir}/specs/${libName}/${type.fileName}`
 	await fs.mkdir(path, {
 		recursive: true,
 	})
@@ -158,6 +166,69 @@ async function renderTypeImpl(
 				recursive: true,
 			})
 			await renderTypeImpl(typeFolder, subt, typeTemplate, hsDocs, ops)
+		}
+	}
+}
+
+async function renderFromSummary({
+	summary,
+	lib,
+	templates,
+	ops,
+	hsDocs,
+}: {
+	summary: LibSummary
+	lib: Lib
+	templates: string[]
+	ops: ArgOps
+	hsDocs: Map<string, string>
+}) {
+	const [, typeTemplate] = templates
+
+	const { targetDir } = ops
+
+	if (summary.equips) {
+		const equipsPath = `${targetDir}/equips/${lib.name}/`
+		await fs.mkdir(equipsPath, { recursive: true })
+
+		for (const [equipVariant, entries] of Object.entries(summary.equips)) {
+			console.log(`Generating equip summary: ${equipVariant}`)
+			for (const [typeName, type] of Object.entries(entries)) {
+				await renderTypeImpl(
+					equipsPath,
+					type,
+					typeTemplate,
+					hsDocs,
+					ops
+				)
+			}
+		}
+	}
+
+	if (summary.points) {
+		const pointsPath = `${targetDir}/points/${lib.name}`
+		await fs.mkdir(pointsPath, { recursive: true })
+
+		for (const [choiceType, entries] of Object.entries(summary.points)) {
+			console.log(`Generating point summary: ${choiceType}`)
+
+			const choiceTypePath = `${pointsPath}/${choiceType}`
+			await fs.mkdir(choiceTypePath, { recursive: true })
+
+			for (const [choiceVariant, types] of Object.entries(entries)) {
+				const choiceVariantPath = `${choiceTypePath}/${choiceVariant}`
+				await fs.mkdir(choiceVariantPath, { recursive: true })
+
+				for (const type of Object.values(types)) {
+					await renderTypeImpl(
+						choiceVariantPath,
+						type,
+						typeTemplate,
+						hsDocs,
+						ops
+					)
+				}
+			}
 		}
 	}
 }

@@ -102,6 +102,19 @@ export class Type extends BaseType {
 		return res
 	}
 
+	get equips(): Type[] {
+		const res = [] as Type[]
+		Object.values(this.slots).forEach((type) => {
+			if (type.of === 'ph::Equip') {
+				Object.values(type.slots).forEach((slot) => {
+					res.push(slot)
+				})
+			}
+		})
+
+		return res
+	}
+
 	get superTypes(): Type[] {
 		if (!this.lib) {
 			return []

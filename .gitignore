@@ -8,5 +8,6 @@ out
 pages/**/**
 pages/**/**
 !pages/meta.json
+!pages/_meta.json
 !pages/index.mdx
 !pages/_app.mdx

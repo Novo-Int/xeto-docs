@@ -172,21 +172,6 @@ export class Type extends BaseType {
 		return [...res]
 	}
 
-	get inheritedMarkers(): { name: string; type: string }[] {
-		const res = [] as { name: string; type: string }[]
-		const added = [] as string[]
-		this.allSuperTypes.reverse().forEach((su) => {
-			Object.entries(su.slots).forEach(([name, type]) => {
-				if (type.type === 'sys::Marker' && !added.includes(name)) {
-					res.push({ name, type: su.typename })
-					added.push(name)
-				}
-			})
-		})
-
-		return res.reverse()
-	}
-
 	get nonSpecialSlots(): Record<string, Type> {
 		const res = {} as Record<string, Type>
 		Object.entries(this.slots).forEach(([name, type]) => {

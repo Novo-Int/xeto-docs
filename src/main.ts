@@ -15,11 +15,6 @@ import { Type } from './types/Type'
 import { haystackDocs } from './types/hs-defs'
 import * as utils from './types/utils'
 
-Eta.configure({
-	...Eta.config,
-	views: process.cwd() + '/templates',
-})
-
 type ArgOps = {
 	ast: string
 	targetDir: string

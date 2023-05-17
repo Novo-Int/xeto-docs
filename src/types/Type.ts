@@ -340,7 +340,7 @@ export class Type extends BaseType {
 	 * Gets the link to the type
 	 */
 	get link(): string {
-		return `${this.libName}/${this.fileName}/${this.typename}`
+		return `${this.libName}/${this.typename}`
 	}
 
 	private slotTypes(

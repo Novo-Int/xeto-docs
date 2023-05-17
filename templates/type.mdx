@@ -8,7 +8,7 @@ import classes from '@/styles/Type.module.css'
 # <%= it.type.typename %>
 <% if (it.type.superTypes.length > 0) { %>
 &nbsp;&larr;<% it.type.superTypes.forEach((st, index) => { %>
-&nbsp;[<%= st.typename %>](/<%= st.link %>)<%= index > 0 ? it.type.base === 'sys::And' ? ' & ' : ' | ' : '' %>
+&nbsp;[<%= st.typename %>](../<%= st.link %>)<%= index > 0 ? it.type.base === 'sys::And' ? ' & ' : ' | ' : '' %>
 <% }) %>
 
 <div className={`${classes.diagramContainer} nx-bg-primary-700/5 dark:nx-bg-primary-300/10`}>
@@ -46,7 +46,7 @@ graph LR
 			<td className="p-2 align-top">
 				<span className="nx-bg-primary-100 rounded-md px-3 py-1 nx-text-primary-800 w-full inline-block font-semibold text-center text-sm"><%= m %></span>
 			</td>
-			<td className="p-2 align-top"><%= it.hsDocs.get(m) %></td>
+			<td className="p-2 align-top"><%~ it.utils.docWithFixedLinks(it.hsDocs.get(m)) %></td>
 		</tr>
 	<% }) %>
 	<% if (it.type.inheritedMarkers.length) { %>
@@ -55,7 +55,7 @@ graph LR
 			<td className="p-2 align-top">
 				<span className="border nx-border-primary-100 rounded-md px-3 py-1 w-full inline-block font-semibold text-center text-sm"><%= m.name %></span>
 			</td>
-			<td className="p-2 align-top"><span className="nx-bg-primary-100 rounded-md px-3 py-1 nx-text-primary-800 font-semibold text-center text-sm whitespace-nowrap mr-2 inline-block">&larr; <%= m.type %></span><%= it.hsDocs.get(m.name) %></td>
+			<td className="p-2 align-top"><span className="nx-bg-primary-100 rounded-md px-3 py-1 nx-text-primary-800 font-semibold text-center text-sm whitespace-nowrap mr-2 inline-block">&larr; <%= m.type %></span><%~ it.hsDocs.get(m.name)?.replaceAll('\n', ' ') %></td>
 		</tr>
 	<% }) %>
 	<%} %>
@@ -117,7 +117,7 @@ graph LR
 	<% if (type.slots && Object.keys(type.slots).length > 0) { %>
 		<ul className='grid grid-cols-3 gap-x-4 gap-y-1 list-disc list-inside mt-4'>
 		<% Object.values(type.slots).forEach((s) => { %>
-			<li className='text-sm font-semibold'>[<%= s.typename %>](/<%= s.link %>)</li>
+			<li className='text-sm font-semibold'>[<%= s.typename %>](../<%= s.link %>)</li>
 		<% }) %>
 		</ul>
 	<% } %>
@@ -143,7 +143,7 @@ graph LR
 
 <% it.type.allSubtypes.forEach((type) => { %>
 
-### [<%= type.typename %>](/<%= type.link %>)
+### [<%= type.typename %>](../<%= type.link %>)
 
 <%= type.doc %>
 <% }) %>

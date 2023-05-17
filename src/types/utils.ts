@@ -63,8 +63,15 @@ export function groupedResources(r: Resource[]): Map<string, Resource[]> {
 				resMap.set(t.typename, [])
 			}
 			resMap.get(t.typename).push(res)
-			console.log(res.slots)
 		})
 	})
 	return resMap
+}
+
+export function docWithFixedLinks(doc: string): string {
+	if (!doc || doc.length === 0) {
+		return ''
+	}
+
+	return doc.replaceAll('\n', ' ').replace(/(\[.+\])(\`.+\`)/g, '$1($2)')
 }

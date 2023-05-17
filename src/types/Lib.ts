@@ -120,4 +120,11 @@ export class Lib extends BaseType {
 
 		return [...res]
 	}
+
+	/**
+	 * Gets the link to the type
+	 */
+	get link(): string {
+		return `${this.name}`
+	}
 }

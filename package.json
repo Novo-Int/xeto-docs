@@ -6,7 +6,7 @@
 		"lint": "eslint --ext .ts .",
 		"format": "prettier-eslint \"./**/*.ts\" --write",
 		"test": "jest",
-		"gen": "ts-node ./src/main.ts -a ./test_data/onicon.json -t ./pages",
+		"gen": "ts-node ./src/main.ts ph -a ./test_data/onicon.json -t ./pages",
 		"clean": "rimraf ./dist && rimraf ./build && rimraf ./.next && rimraf ./pages/",
 		"build": "next build",
 		"start": "serve out",

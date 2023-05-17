@@ -40,7 +40,9 @@ export async function librarySummary(lib: Lib): Promise<LibSummary> {
 		;(summary.specs ??= {})[slot.typename] = slot
 
 		collectEquip(slot, summary)
-		collectPoints(slot, summary)
+		for (const point of slot.points) {
+			collectPoints(point, summary)
+		}
 	}
 
 	return summary
@@ -109,51 +111,75 @@ function collectPoints(type: Type, summary: TypeSummary) {
 	}
 
 	const ns = HNamespace.defaultNamespace
-	const markers = type.markers.filter((marker) => marker !== 'point')
 
-	let def: HDict | undefined
-	let choice: HDict | undefined
+	const pointMarkers = type.markers
+	const markers = pointMarkers.filter((marker) => marker !== 'point')
 
-	if (markers.length === 0) {
-		def = ns.get(toTagName(type.typename))
+	if (!markers.length) {
+		const def = ns.get(toTagName(type.typename))
+		if (def) {
+			;(((summary.points ??= {})['point'] ??= {})[def.defName] ??= {})[
+				type.typename
+			] = type
+		}
 	} else {
-		const bestFit = markers.find((marker) => {
+		markers.forEach((marker) => {
 			const allSuperTypes = ns.allSuperTypesOf(marker)
 			let pointType = allSuperTypes.find(
 				(type) => type.defName === 'point'
 			)
 
+			let choice: HDict | undefined
 			if (!pointType) {
-				pointType = allSuperTypes.find((type) =>
+				const tagOnPoint = allSuperTypes.find((type) =>
 					type
 						.get<HList>('tagOn')
 						?.find((el) => (el as HStr).value === 'point')
 				)
 
+				if (!tagOnPoint) {
+					const superTypesChoice = allSuperTypes.find((type) =>
+						ns.is(type.defName).find((t) => t.defName === 'choice')
+					)
+
+					const goesOnPoint = superTypesChoice
+						?.get<HList<HStr>>('tagOn')
+						?.find((el) => {
+							const children = ns
+								.get(el.value)
+								?.get<HList<HDict>>('children')
+
+							return !!children?.find((child) =>
+								child.keys.every((k) =>
+									pointMarkers.includes(k)
+								)
+							)
+						})
+
+					if (goesOnPoint) {
+						choice = superTypesChoice
+						pointType = ns.get(marker)
+					}
+				}
+
 				if (
-					pointType &&
+					tagOnPoint &&
 					ns
-						.superTypesOf(pointType.defName)
+						.superTypesOf(tagOnPoint.defName)
 						.find((type) => type.defName === 'choice')
 				) {
-					choice = pointType
+					choice = tagOnPoint
+					pointType = ns.get(marker)
 				}
 			}
 
-			return pointType
+			if (pointType) {
+				;(((summary.points ??= {})[choice?.defName ?? 'point'] ??= {})[
+					pointType.defName
+				] ??= {})[type.typename] = type
+			}
 		})
-		if (bestFit) {
-			def = ns.get(bestFit)
-		}
 	}
-
-	if (!def) {
-		return
-	}
-
-	;(((summary.points ??= {})[choice?.defName ?? 'point'] ??= {})[
-		def.defName
-	] ??= {})[type.typename] = type
 }
 
 async function ensureDefs() {

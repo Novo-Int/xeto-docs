@@ -124,7 +124,9 @@ export class Type extends BaseType {
 	 * Get the markers for this type and all super types
 	 */
 	get allMarkers(): string[] {
-		const res = new Set(...this.markers)
+		const res = new Set<string>()
+		this.markers.forEach((m) => res.add(m))
+
 		this.allSuperTypes.forEach((type) => {
 			type.markers.forEach((m) => res.add(m))
 		})

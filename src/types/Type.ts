@@ -132,9 +132,52 @@ export class Type extends BaseType {
 		return [...res]
 	}
 
-	/**
-	 * Get the point slots for this type
-	 */
+	get inheritedMarkers(): { name: string; type: string }[] {
+		const res = [] as { name: string; type: string }[]
+		const added = [] as string[]
+		this.allSuperTypes.reverse().forEach((su) => {
+			Object.entries(su.slots).forEach(([name, type]) => {
+				if (type.type === 'sys::Marker' && !added.includes(name)) {
+					res.push({ name, type: su.typename })
+					added.push(name)
+				}
+			})
+		})
+
+		return res.reverse()
+	}
+
+	get nonSpecialSlots(): Record<string, Type> {
+		const res = {} as Record<string, Type>
+		Object.entries(this.slots).forEach(([name, type]) => {
+			if (
+				!isSpecialSlot(
+					name,
+					type,
+					this.typename.toLowerCase() ===
+						'OniconF1000FlowMeter'.toLowerCase()
+				)
+			) {
+				res[name] = type
+			}
+		})
+
+		return res
+	}
+
+	get inheritedNonSpecialSlots(): Record<string, Type> {
+		const res = {} as Record<string, Type>
+		this.allSuperTypes.forEach((su) => {
+			Object.entries(su.slots).forEach(([name, type]) => {
+				if (!isSpecialSlot(name, type) && !!res[name]) {
+					res[name] = type
+				}
+			})
+		})
+
+		return res
+	}
+
 	get points(): Type[] {
 		const res = [] as Type[]
 		Object.values(this.slots).forEach((type) => {
@@ -318,4 +361,14 @@ export class Type extends BaseType {
 			}
 		)
 	}
+}
+
+const isSpecialSlot = (name: string, t: Type, trace = false) => {
+	if (trace) {
+		console.log(name, t.type)
+	}
+	return (
+		t.type === 'sys::Marker' ||
+		(t.type === 'sys::Dict' && (name === 'resources' || name === 'attrs'))
+	)
 }

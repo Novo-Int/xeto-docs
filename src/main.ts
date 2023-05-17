@@ -5,9 +5,20 @@ import fs from 'fs/promises'
 import { BASE_URL } from './defaults.js'
 import { LibsRegistry } from './loader'
 import { Lib } from './types/Lib'
-import { LibSummary, librarySummary } from './types/Summary'
+import {
+	LibSummary,
+	TypeSummary,
+	librarySummary,
+	typeSummary,
+} from './types/Summary'
 import { Type } from './types/Type'
 import { haystackDocs } from './types/hs-defs'
+import * as utils from './types/utils'
+
+Eta.configure({
+	...Eta.config,
+	views: process.cwd() + '/templates',
+})
 
 type ArgOps = {
 	ast: string
@@ -151,9 +162,17 @@ async function renderTypeImpl(
 	hsDocs: Map<string, string>,
 	ops: ArgOps
 ) {
+	let summary: TypeSummary | undefined
+
+	if (type.points && type.points.length > 0) {
+		for (const p of type.points) {
+			summary = await typeSummary(p, summary)
+		}
+	}
+
 	const typePage = Eta.render(
 		typeTemplate,
-		{ type, hsDocs, baseUrl: ops.baseUrl } ?? {}
+		{ type, hsDocs, baseUrl: ops.baseUrl, summary: summary, utils } ?? {}
 	)
 
 	await fs.writeFile(`${path}/${type.typename}.mdx`, typePage)

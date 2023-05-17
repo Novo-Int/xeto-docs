@@ -1,60 +1,163 @@
+
+import {Toggle} from '@/components/Toggle'
+import {List, ListItem, Subtitle, Text} from '@tremor/react'
+import { Tab, Tabs } from 'nextra-theme-docs'
+import classnames from 'classnames'
+import classes from '@/styles/Type.module.css'
+
 # <%= it.type.typename %>
+<% if (it.type.superTypes.length > 0) { %>
+&nbsp;&larr;<% it.type.superTypes.forEach((st, index) => { %>
+&nbsp;[<%= st.typename %>](/<%= st.link %>)<%= index > 0 ? it.type.base === 'sys::And' ? ' & ' : ' | ' : '' %>
+<% }) %>
+
+<div className={`${classes.diagramContainer} nx-bg-primary-700/5 dark:nx-bg-primary-300/10`}>
+<div className='text-xs px-4 py-2 font-semibold nx-bg-primary-700/5 nx-text-gray-700 dark:nx-bg-primary-300/10 dark:nx-text-gray-200 nx-rounded-t-xl'>Entity Hierachy</div>
+```mermaid
+graph LR
+<%~ it.utils.typeHierarchyDiagram(it.type) %>
+```
+</div>
+
+<% } %>
 
 <%= it.type.doc %>
 
 <% if (it.type.markers.length) { %>
+<div className={classes.slotHeader}>
 ## Markers
-<table>
-<tbody>
-<% it.type.markers.forEach((name) => { %>
-<tr>
-<td className='p-2 align-top'><span className='bg-sky-200 rounded-md px-3 py-1 text-sky-700 block font-semibold text-center text-sm'><%= name %> </span></td>
-<td className='p-2 align-top'><%= it.hsDocs.get(name)?.replaceAll(/\n/g, ' ') ?? '' %></td>
-</tr>
-<% }) %>
-</tbody>
+	<% if (it.type.inheritedMarkers.length > 0) { %>
+	<div className="nx-font-semibold nx-tracking-tight nx-text-slate-900 dark:nx-text-slate-100 nx-mt-10 nx-border-b nx-pb-1 nx-text-3xl nx-border-neutral-200/70 contrast-more:nx-border-neutral-400 dark:nx-border-primary-100/10 contrast-more:dark:nx-border-neutral-400 flex items-end">
+		<div className='flex items-center'>
+			<span className="text-sm mr-2">Toggle Inherited</span>
+			<Toggle onChange={(val => {
+				document.querySelectorAll('.mark_inherited').forEach((el) => {
+					el.classList.toggle('hidden', !val)
+				})
+			})}/>
+		</div>
+	</div>
+	<% } %>
+</div>
+<table className='marker_table'>
+	<tbody>
+	<% it.type.markers.forEach((m) => { %>
+		<tr>
+			<td className="p-2 align-top">
+				<span className="nx-bg-primary-100 rounded-md px-3 py-1 nx-text-primary-800 w-full inline-block font-semibold text-center text-sm"><%= m %></span>
+			</td>
+			<td className="p-2 align-top"><%= it.hsDocs.get(m) %></td>
+		</tr>
+	<% }) %>
+	<% if (it.type.inheritedMarkers.length) { %>
+	<% it.type.inheritedMarkers.forEach((m) => { %>
+		<tr className='mark_inherited hidden'>
+			<td className="p-2 align-top">
+				<span className="border nx-border-primary-100 rounded-md px-3 py-1 w-full inline-block font-semibold text-center text-sm"><%= m.name %></span>
+			</td>
+			<td className="p-2 align-top"><span className="nx-bg-primary-100 rounded-md px-3 py-1 nx-text-primary-800 font-semibold text-center text-sm whitespace-nowrap mr-2 inline-block">&larr; <%= m.type %></span><%= it.hsDocs.get(m.name) %></td>
+		</tr>
+	<% }) %>
+	<%} %>
+	</tbody>
 </table>
-<% } %>
+<%} %>
 
-<% if (Object.keys(it.type.slots).length) { %>
+<% if (Object.keys(it.type.nonSpecialSlots).length) { %>
+<div className={classes.slotHeader}>
 ## Slots
+	<% if (Object.keys(it.type.inheritedNonSpecialSlots).length) { %>
 
-<% Object.entries(it.type.slots).forEach(([name, type]) => { %>
-### <%= name %>
+		<div className="nx-font-semibold nx-tracking-tight nx-text-slate-900 dark:nx-text-slate-100 nx-mt-10 nx-border-b nx-pb-1 nx-text-3xl nx-border-neutral-200/70 contrast-more:nx-border-neutral-400 dark:nx-border-primary-100/10 contrast-more:dark:nx-border-neutral-400 flex items-end">
+			<div className='flex items-center'>
+				<span className="text-sm mr-2">Toggle Inherited</span>
+				<Toggle onChange={(val => {
+					document.querySelectorAll('.slot_inherited').forEach((el) => {
+						el.classList.toggle('hidden', !val)
+					})
+				})}/>
+			</div>
+		</div>
+	<% } %>
+</div>
 
-Type: `<%= type.typename %>`
 
-<% }) %>
+<% if (it.utils.hasSummary(it.summary)) { %>
+<div className='flex flex-col nx-bg-primary-700/5 dark:nx-bg-primary-300/10 nx-rounded-xl mt-6'>
+	<div className='text-xs px-4 py-2 font-semibold nx-bg-primary-700/5 nx-text-gray-700 dark:nx-bg-primary-300/10 dark:nx-text-gray-200 nx-rounded-t-xl'>Summary</div>
+	<div className='grid grid-cols-3 gap-4 p-4'>
+		<% Object.entries(it.summary.points).forEach(([key, val]) => { %>
+			<div key="<%= key %>">
+				<Subtitle><%= key %></Subtitle>
+				<List className='divide-dotted'>
+				<% Object.entries(val).forEach(([field, fieldVal]) => { %>
+					<ListItem key="<%= field %>">
+						<Text><%= field %></Text>
+						<Text><%= Object.keys(fieldVal).length %></Text>
+					</ListItem>
+				<% }) %>
+				</List>
+			</div>
+		<% }) %>
+	</div>
+</div>
 <% } %>
 
-<% if (it.type.points.length) { %>
-## Points
 
-<% it.type.points.forEach((type) => { %>
-### <%= type.typename %>
 
-Type: `<%= type.typename %>`
+<% Object.entries(it.type.nonSpecialSlots).forEach(([name, type]) => { %>
+	<div className={classes.slot} data-slot='<%= type.typename %>'>
+		### <%= name %>
+
+
+	</div>
+
+	<%= type.doc %>
+
+	<% if (type.slots && Object.keys(type.slots).length > 0) { %>
+		<ul className='grid grid-cols-3 gap-x-4 gap-y-1 list-disc list-inside mt-4'>
+		<% Object.values(type.slots).forEach((s) => { %>
+			<li className='text-sm font-semibold'>[<%= s.typename %>](/<%= s.link %>)</li>
+		<% }) %>
+		</ul>
+	<% } %>
 
 <% }) %>
+
+<% if (Object.keys(it.type.inheritedNonSpecialSlots).length) { %>
+	<% Object.entries(it.type.inheritedNonSpecialSlots).forEach(([name, type]) => { %>
+	<div className='slot_inherited hidden'>
+		<div className={classnames(classes.slot, 'mark_inherited hidden')} data-slot='<%= type.typename %>'>
+			### <%= name %>
+		</div>
+		<%= type.doc %>
+	</div>
+	<% }) %>
+<% } %>
 <% } %>
 
-<% if (it.type.allSuperTypes.length) { %>
-## Super Types
-<% it.type.allSuperTypes.forEach((type) => { %>
-### <%= type.typename %>
 
-<%= type.doc %>
-[More...](/<%= type.link %>)
+<% if (it.type.allSubtypes.length > 0) { %>
 
-<% }) %>
-<% } %>
-
-<% if (it.type.allSubtypes.length) { %>
 ## Subtypes
+
 <% it.type.allSubtypes.forEach((type) => { %>
-### <%= type.typename %>
+
+### [<%= type.typename %>](/<%= type.link %>)
 
 <%= type.doc %>
-[More...](./<%= type.typename %>)
 <% }) %>
+<% } %>
+
+<% if (it.type.resources.length > 0) { %>
+## Resources
+<Tabs items={JSON.parse(`[<%~ Array.from(it.utils.groupedResources(it.type.resources).keys()).map(r => `"${r}"`).join(',') %>]`)}>
+<% Array.from(it.utils.groupedResources(it.type.resources).values()).forEach((resArr) => { %>
+	<Tab>
+		<% resArr.forEach((res) => { %>
+			- [<%= res.uri.substring(res.uri.lastIndexOf('/') + 1).replace(/\..+/g, '') %>](<%= res.uri %>)
+		<% }) %>
+	</Tab>
+<% }) %>
+</Tabs>
 <% } %>

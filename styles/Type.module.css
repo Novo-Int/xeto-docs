@@ -1,0 +1,32 @@
+.slotHeader {
+	@apply flex flex-row;
+}
+
+.slotHeader h2 {
+	@apply flex-auto;
+}
+
+.slotHeader + .withInherited {
+	@apply invisible;
+}
+
+.slot {
+	@apply flex items-baseline;
+}
+
+.slot + p {
+	@apply mt-2;
+}
+
+.slot::before {
+	content: attr(data-slot);
+	@apply bg-gray-200 text-xs uppercase font-semibold tracking-wider rounded-full px-2 py-1 mr-2 border border-gray-400;
+}
+
+.diagramContainer {
+	@apply rounded-xl mt-4 flex flex-col;
+}
+
+.diagramContainer > div:last-child {
+	@apply flex justify-start items-center p-4 mt-0;
+}

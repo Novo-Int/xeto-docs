@@ -39,4 +39,13 @@ export class BaseType {
 		this.doc = getOptionalString('doc', props)
 		this.loc = getOptionalString('fileloc', props)
 	}
+
+	clone(): BaseType {
+		const clone = new BaseType(this.type)
+		clone.doc = this.doc
+		clone.loc = this.loc
+		clone.slots = { ...this.slots }
+
+		return clone
+	}
 }

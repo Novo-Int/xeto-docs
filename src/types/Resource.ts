@@ -6,25 +6,29 @@ import type { Type } from './Type'
 export class Resource {
 	/** The backing type */
 	readonly backingType: Type
-	/** The slots */
-	readonly slots: { [name: string]: Type }
 
-	constructor(type: Type, slots: { [name: string]: Type }) {
+	constructor(type: Type) {
 		this.backingType = type
-		this.slots = slots
 	}
 
 	/**
 	 * The makers of the backing type
 	 */
 	get markers(): string[] {
-		return this.backingType.markers
+		return this.backingType.allMarkers
+	}
+
+	/**
+	 * Uri of the resource
+	 */
+	get doc(): string {
+		return this.backingType.doc ?? ''
 	}
 
 	/**
 	 * Uri of the resource
 	 */
 	get uri(): string {
-		return this.slots.uri.val as string
+		return this.backingType.slots.uri.val as string
 	}
 }

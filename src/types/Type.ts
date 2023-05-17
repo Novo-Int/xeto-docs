@@ -92,6 +92,44 @@ export class Type extends BaseType {
 		return type
 	}
 
+	static instantiate(
+		form: Type,
+		props: Pick<Type, 'of'> &
+			Pick<Type, 'type'> &
+			Pick<Type, 'base'> &
+			Pick<Type, 'slots'> &
+			Pick<Type, 'doc'>
+	): Type {
+		const clone = form.clone()
+
+		if (props.type === 'sys::And' || props.type === 'sys::Or') {
+			clone.of = props.of
+			clone.base = props.type
+			clone.type = props.base
+		}
+
+		Object.entries(props.slots).forEach(([name, type]) => {
+			clone.slots[name] = type
+		})
+
+		clone.doc = props.doc
+
+		return clone
+	}
+
+	override clone(): Type {
+		const clone = new Type(this.type, this.base, this.lib)
+		clone.doc = this.doc
+		clone.loc = this.loc
+		clone.slots = { ...this.slots }
+		clone.isAbstract = this.isAbstract
+		clone.isSealed = this.isSealed
+		clone.of = this.of
+		clone.val = this.val
+
+		return clone
+	}
+
 	/**
 	 * Get the library name
 	 */
@@ -227,11 +265,18 @@ export class Type extends BaseType {
 			}
 
 			Object.values(type.slots).forEach((slot) => {
-				const resType = slot.type
+				let resType = slot.type
 					? this.lib?.getType(slot.type)
 					: undefined
 				if (resType) {
-					res.push(new Resource(resType, slot.slots))
+					resType = Type.instantiate(resType, {
+						type: slot.type,
+						base: 'ph::Resource',
+						of: slot.of,
+						slots: slot.slots,
+						doc: slot.doc,
+					})
+					res.push(new Resource(resType))
 				}
 			})
 		})

@@ -124,7 +124,10 @@ function collectPoints(type: Type, summary: TypeSummary) {
 			] = type
 		}
 	} else {
-		const pointTags = ns.tags('point')
+		const pointChoices = ns
+			.tags('point')
+			.filter((tag) => isOfType(tag, 'choice'))
+
 		markers.forEach((marker) => {
 			const allSuperTypes = ns.allSuperTypesOf(marker)
 			let pointType = allSuperTypes.find(
@@ -163,14 +166,11 @@ function collectPoints(type: Type, summary: TypeSummary) {
 						pointType = ns.get(marker)
 					} else {
 						// Indirect choice
-						choice = pointTags.find((tag) => {
-							return (
-								isOfType(tag, 'choice') &&
-								allSuperTypes.find(
-									(type) =>
-										type.defName ===
-										(tag.of as HStr | undefined)?.value
-								)
+						choice = pointChoices.find((el) => {
+							return allSuperTypes.find(
+								(type) =>
+									type.defName ===
+									(el.of as HStr | undefined)?.value
 							)
 						})
 
@@ -179,9 +179,7 @@ function collectPoints(type: Type, summary: TypeSummary) {
 						}
 					}
 				} else if (
-					ns
-						.superTypesOf(tagOnPoint.defName)
-						.find((type) => type.defName === 'choice')
+					pointChoices.find((el) => el.defName === tagOnPoint.defName)
 				) {
 					choice = tagOnPoint
 					pointType = ns.get(marker)

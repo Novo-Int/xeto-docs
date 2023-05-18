@@ -6,6 +6,7 @@ import {
 	initDefaultNamespace,
 	loadPhNormalizedDefs,
 } from './hs-defs'
+import { isOfType } from './hs-defs'
 
 /**
  * The summary of a type
@@ -123,6 +124,7 @@ function collectPoints(type: Type, summary: TypeSummary) {
 			] = type
 		}
 	} else {
+		const pointTags = ns.tags('point')
 		markers.forEach((marker) => {
 			const allSuperTypes = ns.allSuperTypesOf(marker)
 			let pointType = allSuperTypes.find(
@@ -159,11 +161,24 @@ function collectPoints(type: Type, summary: TypeSummary) {
 					if (goesOnPoint) {
 						choice = superTypesChoice
 						pointType = ns.get(marker)
-					}
-				}
+					} else {
+						// Indirect choice
+						choice = pointTags.find((tag) => {
+							return (
+								isOfType(tag, 'choice') &&
+								allSuperTypes.find(
+									(type) =>
+										type.defName ===
+										(tag.of as HStr | undefined)?.value
+								)
+							)
+						})
 
-				if (
-					tagOnPoint &&
+						if (choice) {
+							pointType = ns.get(marker)
+						}
+					}
+				} else if (
 					ns
 						.superTypesOf(tagOnPoint.defName)
 						.find((type) => type.defName === 'choice')

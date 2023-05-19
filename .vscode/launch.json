@@ -5,7 +5,7 @@
 			"type": "node-terminal",
 			"request": "launch",
 			"name": "Debug Program",
-			"command": "${workspaceFolder}/node_modules/.bin/ts-node -- ${file} ashrae.g36 -a ./test_data/onicon.json -t ./pages",
+			"command": "${workspaceFolder}/node_modules/.bin/ts-node -- ${file} -a ./test_data/onicon.json -t ./pages",
 			"cwd": "${workspaceFolder}"
 		}
 	]

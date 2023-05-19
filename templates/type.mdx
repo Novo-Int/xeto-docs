@@ -1,27 +1,17 @@
 
 import {Toggle} from '@/components/Toggle'
-import {List, ListItem, Subtitle, Text} from '@tremor/react'
-import { Tab, Tabs } from 'nextra-theme-docs'
+import {Dropdown, DropdownItem} from '@tremor/react'
 import classnames from 'classnames'
 import classes from '@/styles/Type.module.css'
 
 # <%= it.type.typename %>
 <% if (it.type.superTypes.length > 0) { %>
-&nbsp;&larr;<% it.type.superTypes.forEach((st, index) => { %>
-&nbsp;[<%= st.typename %>](../<%= st.link %>)<%= index > 0 ? it.type.base === 'sys::And' ? ' & ' : ' | ' : '' %>
+&nbsp;&larr;&nbsp;<% it.type.superTypes.forEach((st, index) => { %>
+[<%= st.typename %>](../<%= st.link %>)<%= index === 0 && it.type.base === 'sys::And' || it.type.base === 'sys:Or' ? it.type.base === 'sys::And' ? ' & ' : ' | ' : '' %>
 <% }) %>
-
-<div className={`${classes.diagramContainer} nx-bg-primary-700/5 dark:nx-bg-primary-300/10`}>
-<div className='text-xs px-4 py-2 font-semibold nx-bg-primary-700/5 nx-text-gray-700 dark:nx-bg-primary-300/10 dark:nx-text-gray-200 nx-rounded-t-xl'>Entity Hierachy</div>
-```mermaid
-graph LR
-<%~ it.utils.typeHierarchyDiagram(it.type) %>
-```
-</div>
-
 <% } %>
 
-<%= it.type.doc %>
+<%~ it.utils.docWithFixedLinks(it.type.doc) %>
 
 <% if (it.type.markers.length) { %>
 <div className={classes.slotHeader}>
@@ -55,13 +45,38 @@ graph LR
 			<td className="p-2 align-top">
 				<span className="border nx-border-primary-100 rounded-md px-3 py-1 w-full inline-block font-semibold text-center text-sm"><%= m %></span>
 			</td>
-			<td className="p-2 align-top"><span className="nx-bg-primary-100 rounded-md px-3 py-1 nx-text-primary-800 font-semibold text-center text-sm whitespace-nowrap mr-2 inline-block">&larr; sys::Marker</span><%~ it.hsDocs.get(m)?.replaceAll('\n', ' ') %></td>
+			<td className="p-2 align-top"><span className="nx-bg-primary-100 rounded-md px-3 py-1 nx-text-primary-800 font-semibold text-center text-sm whitespace-nowrap mr-2 inline-block">&larr; <%= m.type %></span><%~ it.utils.docWithFixedLinks(it.hsDocs.get(m.name)) %></td>
 		</tr>
 	<% }) %>
 	<%} %>
 	</tbody>
 </table>
 <%} %>
+
+<% if (it.utils.hasSummary(it.summary)) { %>
+<div className={`${classes.summaryBox} flex flex-col bg-emerald-700/5 dark:nx-bg-primary-300/10 nx-rounded-xl mt-10`}>
+	<div className='text-sm px-4 py-2 font-semibold bg-emerald-700/5 rounded-t-xl text-emerald-800/70'>
+	## Point Summary
+	</div>
+
+	<ul className='px-4 py-2 flex flex-col gap-6 pb-4'>
+	<% Object.entries(it.summary.points).forEach(([key, val]) => { %>
+		<li>
+			<div className='text-emerald-800/70'><span className='text-sm'># </span><a className='underline underline-offset-2 decoration-dotted' href='https://project-haystack.org/doc/lib-phIoT/<%= key %>'><%= key %></a> </div>
+			<p className='text-xs'><%= it.utils.docWithFixedLinks(it.hsDocs.get(key)) %></p>
+			<ul className='grid md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-2 mt-2'>
+				<% Object.entries(val).forEach(([field, fieldVals]) => { %>
+					<li className='text-xs flex items-center justify-between font-mono bg-emerald-700/10 px-3 py-1 rounded-sm text-emerald-700'>
+						<span><%= field %></span>
+						<span><%= new Intl.NumberFormat('en-US', {minimumIntegerDigits: 2}).format(Object.keys(fieldVals).length) %></span>
+					</li>
+				<% }) %>
+			</ul>
+		</li>
+	<% }) %>
+	</ul>
+</div>
+<% } %>
 
 <% if (Object.keys(it.type.nonSpecialSlots).length) { %>
 <div className={classes.slotHeader}>
@@ -81,30 +96,6 @@ graph LR
 	<% } %>
 </div>
 
-
-<% if (it.utils.hasSummary(it.summary)) { %>
-<div className='flex flex-col nx-bg-primary-700/5 dark:nx-bg-primary-300/10 nx-rounded-xl mt-6'>
-	<div className='text-xs px-4 py-2 font-semibold nx-bg-primary-700/5 nx-text-gray-700 dark:nx-bg-primary-300/10 dark:nx-text-gray-200 nx-rounded-t-xl'>Summary</div>
-	<div className='grid grid-cols-3 gap-4 p-4'>
-		<% Object.entries(it.summary.points).forEach(([key, val]) => { %>
-			<div key="<%= key %>">
-				<Subtitle><%= key %></Subtitle>
-				<List className='divide-dotted'>
-				<% Object.entries(val).forEach(([field, fieldVal]) => { %>
-					<ListItem key="<%= field %>">
-						<Text><%= field %></Text>
-						<Text><%= Object.keys(fieldVal).length %></Text>
-					</ListItem>
-				<% }) %>
-				</List>
-			</div>
-		<% }) %>
-	</div>
-</div>
-<% } %>
-
-
-
 <% Object.entries(it.type.nonSpecialSlots).forEach(([name, type]) => { %>
 	<div className={classes.slot} data-slot='<%= type.typename %>'>
 		### <%= name %>
@@ -112,7 +103,7 @@ graph LR
 
 	</div>
 
-	<%= type.doc %>
+	<%~ it.utils.docWithFixedLinks(type.doc) %>
 
 	<% if (type.slots && Object.keys(type.slots).length > 0) { %>
 		<ul className='grid grid-cols-3 gap-x-4 gap-y-1 list-disc list-inside mt-4'>
@@ -130,7 +121,7 @@ graph LR
 		<div className={classnames(classes.slot, 'mark_inherited hidden')} data-slot='<%= type.typename %>'>
 			### <%= name %>
 		</div>
-		<%= type.doc %>
+		<%~ it.utils.docWithFixedLinks(type.doc) %>
 	</div>
 	<% }) %>
 <% } %>
@@ -145,19 +136,53 @@ graph LR
 
 ### [<%= type.typename %>](../<%= type.link %>)
 
-<%= type.doc %>
+<%~ it.utils.docWithFixedLinks(type.doc) %>
 <% }) %>
 <% } %>
 
 <% if (it.type.resources.length > 0) { %>
+<div className={classes.slotHeader}>
 ## Resources
-<Tabs items={JSON.parse(`[<%~ Array.from(it.utils.groupedResources(it.type.resources).keys()).map(r => `"${r}"`).join(',') %>]`)}>
-<% Array.from(it.utils.groupedResources(it.type.resources).values()).forEach((resArr) => { %>
-	<Tab>
+
+	<div className="nx-font-semibold nx-tracking-tight nx-text-slate-900 dark:nx-text-slate-100 nx-mt-10 nx-border-b nx-pb-1 nx-text-3xl nx-border-neutral-200/70 contrast-more:nx-border-neutral-400 dark:nx-border-primary-100/10 contrast-more:dark:nx-border-neutral-400 flex items-end">
+		<Dropdown
+			className="mt-2"
+			defaultValue="All"
+			onValueChange={(value) => {
+				document.querySelectorAll('.resource_cat').forEach((el) => {
+					el.classList.toggle('hidden', value !== 'All' && el.dataset.category !== value)
+				})
+			}}
+			placeholder="Resource Category...">
+			<DropdownItem value="All" text="All" />
+			<% Array.from(it.type.groupedResources.keys()).filter((k) => k !== 'Video').forEach((r) => { %>
+			<DropdownItem value='<%= r %>' text='<%= r %>' />
+			<% }) %>
+		</Dropdown>
+	</div>
+</div>
+
+<% Array.from(it.type.groupedResources.entries()).filter(([k]) => k !== 'Video').forEach(([key, resArr], index, arr) => { %>
+	<div data-category='<%= key %>' className='resource_cat'>
+
 		<% resArr.forEach((res) => { %>
-			- [<%= res.uri.substring(res.uri.lastIndexOf('/') + 1).replace(/\..+/g, '') %>](<%= res.uri %>)
+		- <div className='inline-flex items-center gap-2 mr-2'><% it.utils.resourceCategories(res, arr).forEach((cat) => { %><span className='text-[0.6rem] uppercase font-semibold tracking-wider rounded-md px-2 py-1 border relative' style={{color: '<%= it.utils.categoryProp(cat).color %>', borderColor: '<%= it.utils.categoryProp(cat).color %>'}}><span className={classes.catPill} style={{backgroundColor: '<%= it.utils.categoryProp(cat).color %>'}}></span><%= it.utils.categoryProp(cat).abbr %></span><% }) %> </div> [<%= res.doc || res.uri.substring(res.uri.lastIndexOf('/') + 1).replace(/\..+/g, '') %>](<%= res.uri %>)
 		<% }) %>
-	</Tab>
+
+	</div>
 <% }) %>
-</Tabs>
+
+<% } %>
+
+<% if (it.type.groupedResources.get('Video')?.size > 0) { %>
+
+## Videos
+
+
+<div className='grid grid-cols-3 gap-4'>
+	<% it.type.groupedResources.get('Video').forEach((v) => { %>
+		<video height="300" controls src="<%= v.uri %>" />
+	<% }) %>
+</div>
+
 <% } %>

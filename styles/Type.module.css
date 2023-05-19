@@ -27,10 +27,20 @@
 	@apply bg-gray-200 text-[0.6rem] uppercase font-extrabold tracking-wider rounded-md px-3 py-1 mr-2 border border-gray-400;
 }
 
+.summaryBox h2 {
+	@apply mt-0 p-0 border-none;
+	font-size: inherit;
+	color: inherit;
+}
+
 .diagramContainer {
 	@apply rounded-xl mt-4 flex flex-col;
 }
 
 .diagramContainer > div:last-child {
 	@apply flex justify-start items-center p-4 mt-0;
+}
+
+.catPill {
+	@apply absolute w-full h-full opacity-10 top-0 left-0;
 }

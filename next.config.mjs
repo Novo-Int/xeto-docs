@@ -1,5 +1,4 @@
 import nextra from 'nextra'
-import { remarkMermaid } from 'remark-mermaid-nextra'
 import defaults from './src/defaults.js'
 
 const { BASE_URL } = defaults
@@ -10,9 +9,9 @@ const withNextra = nextra({
 	staticImage: true,
 	defaultShowCopyCode: true,
 	readingTime: true,
-	mdxOptions: {
-		remarkPlugins: [remarkMermaid],
-	},
+	// mdxOptions: {
+	// 	remarkPlugins: [remarkMermaid],
+	// },
 })
 
 export default withNextra({

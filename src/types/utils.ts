@@ -40,12 +40,23 @@ export function typeHierarchyDiagram(t: Type): string {
 	}
 
 	const relationType = t.base === 'sys::Or' ? '-..->' : '---->'
-	return t.superTypes.reduce((acc, it) => {
+	const diag = t.superTypes.reduce((acc, it) => {
 		return `\t${acc}${relationType}${genItem(
 			it.typename
-		)}\n${typeHierarchyDiagram(it)}`
+		)};\n${typeHierarchyDiagram(it)}`
 	}, genItem(t.typename))
+
+	return diag
 }
+
+// export function validGraph(t: Type): boolean {
+// 	const graph = typeHierarchyDiagram(t)
+
+// 	const isOk = mermaid.parse(graph)
+// 	console.log('error parsing graph for type:', t.typename)
+
+// 	return !!isOk
+// }
 
 export function hasSummary(summary: TypeSummary): boolean {
 	return (
@@ -55,17 +66,52 @@ export function hasSummary(summary: TypeSummary): boolean {
 	)
 }
 
-export function groupedResources(r: Resource[]): Map<string, Resource[]> {
-	const resMap = new Map()
-	r.forEach((res) => {
-		res.backingType.superTypes.forEach((t) => {
-			if (!resMap.has(t.typename)) {
-				resMap.set(t.typename, [])
-			}
-			resMap.get(t.typename).push(res)
-		})
-	})
-	return resMap
+export function resourceCategories(
+	r: Resource,
+	groups: [string, Resource[]][]
+): string[] {
+	return groups.filter(([, val]) => val.includes(r)).map(([k]) => k)
+}
+
+export function categoryProp(cat: string): { abbr: string; color: string } {
+	switch (cat) {
+		case 'ExcelDocument':
+			return { abbr: 'Excel', color: '#15803d' }
+		case 'WordDocument':
+			return { abbr: 'Doc', color: '#2456b4' }
+		case 'PowerPointDocument':
+			return { abbr: 'PPT', color: '#c0583a' }
+		case 'PdfDocument':
+			return { abbr: 'PDF', color: '#e03c31' }
+		case 'AutoCadDocument':
+			return { abbr: 'CAD', color: '#cb2f50' }
+		case 'Video':
+			return { abbr: 'Video', color: '#ec4899' }
+		case 'InstallationGuide':
+		case 'ConfigureGuide':
+			return { abbr: 'Guide', color: '#6b7280' }
+		case 'Manual':
+		case 'CutSheet':
+			return { abbr: 'Manual', color: '#a16207' }
+	}
+
+	return { abbr: cat, color: '#6b7280' }
+}
+
+const docLink = (link: string) => {
+	link = link.slice(1, -1)
+	if (link.includes('::')) {
+		const prefix = link.split('::')[0]
+		const suffix = link.split('::').length > 1 ? link.split('::')[1] : ''
+		switch (prefix) {
+			case 'docHaystack':
+				return `https://project-haystack.org/doc/${prefix}/${suffix}`
+		}
+
+		return `${link}`
+	} else {
+		return `https://project-haystack.org/doc/lib-phIoT/${link}`
+	}
 }
 
 export function docWithFixedLinks(doc: string): string {
@@ -73,5 +119,15 @@ export function docWithFixedLinks(doc: string): string {
 		return ''
 	}
 
-	return doc.replaceAll('\n', ' ').replace(/(\[.+\])(\`.+\`)/g, '$1($2)')
+	return doc
+		.replaceAll('\n', ' ')
+		.replaceAll(/(\[.+\])\`(.+)\`/g, (m) => {
+			return m.replaceAll(/\`.+\`/g, docLink)
+		})
+		.replaceAll(/\`.+\`/g, (m) => {
+			const link = m.slice(1, -1)
+			const suffix = link.includes('::') ? link.split('::')[1] : link
+
+			return `[${suffix}](${docLink(m)})`
+		})
 }

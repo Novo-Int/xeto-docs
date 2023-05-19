@@ -175,14 +175,7 @@ export class Type extends BaseType {
 	get nonSpecialSlots(): Record<string, Type> {
 		const res = {} as Record<string, Type>
 		Object.entries(this.slots).forEach(([name, type]) => {
-			if (
-				!isSpecialSlot(
-					name,
-					type,
-					this.typename.toLowerCase() ===
-						'OniconF1000FlowMeter'.toLowerCase()
-				)
-			) {
+			if (!isSpecialSlot(name, type)) {
 				res[name] = type
 			}
 		})
@@ -267,6 +260,29 @@ export class Type extends BaseType {
 		})
 
 		return res
+	}
+
+	get groupedResources(): Map<string, Resource[]> {
+		const resMap = new Map()
+		this.resources.forEach((res) => {
+			if (
+				res.backingType.base === 'sys::And' ||
+				res.backingType.base === 'sys::Or'
+			) {
+				res.backingType.superTypes.forEach((t) => {
+					if (!resMap.has(t.typename)) {
+						resMap.set(t.typename, [])
+					}
+					resMap.get(t.typename).push(res)
+				})
+			} else {
+				if (!resMap.has(res.backingType.typename)) {
+					resMap.set(res.backingType.typename, [])
+				}
+				resMap.get(res.backingType.typename).push(res)
+			}
+		})
+		return resMap
 	}
 
 	/**
@@ -395,10 +411,7 @@ export class Type extends BaseType {
 	}
 }
 
-const isSpecialSlot = (name: string, t: Type, trace = false) => {
-	if (trace) {
-		console.log(name, t.type)
-	}
+const isSpecialSlot = (name: string, t: Type) => {
 	return (
 		t.type === 'sys::Marker' ||
 		(t.type === 'sys::Dict' && (name === 'resources' || name === 'attrs'))

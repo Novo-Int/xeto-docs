@@ -11,7 +11,7 @@ import classes from '@/styles/Type.module.css'
 <% }) %>
 <% } %>
 
-<%~ it.utils.docWithFixedLinks(it.type.doc) %>
+<%= it.utils.docWithFixedLinks(it.type.doc) %>
 
 <% if (it.type.markers.length) { %>
 <div className={classes.slotHeader}>
@@ -103,7 +103,7 @@ import classes from '@/styles/Type.module.css'
 
 	</div>
 
-	<%~ it.utils.docWithFixedLinks(type.doc) %>
+	<%= it.utils.docWithFixedLinks(type.doc) %>
 
 	<% if (type.slots && Object.keys(type.slots).length > 0) { %>
 		<ul className='grid grid-cols-3 gap-x-4 gap-y-1 list-disc list-inside mt-4'>
@@ -121,7 +121,7 @@ import classes from '@/styles/Type.module.css'
 		<div className={classnames(classes.slot, 'mark_inherited hidden')} data-slot='<%= type.typename %>'>
 			### <%= name %>
 		</div>
-		<%~ it.utils.docWithFixedLinks(type.doc) %>
+		<%= it.utils.docWithFixedLinks(type.doc) %>
 	</div>
 	<% }) %>
 <% } %>
@@ -136,7 +136,7 @@ import classes from '@/styles/Type.module.css'
 
 ### [<%= type.typename %>](../<%= type.link %>)
 
-<%~ it.utils.docWithFixedLinks(type.doc) %>
+<%= it.utils.docWithFixedLinks(type.doc) %>
 <% }) %>
 <% } %>
 

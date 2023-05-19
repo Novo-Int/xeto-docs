@@ -1,3 +1,4 @@
+import { memoize } from 'haystack-core'
 import { BaseType } from './BaseType'
 import type { Lib } from './Lib'
 import { Resource } from './Resource'
@@ -147,6 +148,7 @@ export class Type extends BaseType {
 	/**
 	 * Get the markers for this type
 	 */
+	@memoize()
 	get markers(): string[] {
 		const res = [] as string[]
 		Object.entries(this.slots).forEach(([name, type]) => {
@@ -161,6 +163,7 @@ export class Type extends BaseType {
 	/**
 	 * Get the markers for this type and all super types
 	 */
+	@memoize()
 	get allMarkers(): string[] {
 		const res = new Set<string>()
 		this.markers.forEach((m) => res.add(m))
@@ -196,7 +199,15 @@ export class Type extends BaseType {
 		return res
 	}
 
+	/**
+	 * If this is a point type or this has slots of point types
+	 * return the point types
+	 */
 	get points(): Type[] {
+		if (this.allSuperTypes.find((st) => st.type === 'ph::Point')) {
+			return [this]
+		}
+
 		const res = [] as Type[]
 		Object.values(this.slots).forEach((type) => {
 			if (type.of !== 'ph::Point') {
@@ -288,6 +299,7 @@ export class Type extends BaseType {
 	/**
 	 * Get the direct super types for this type
 	 */
+	@memoize()
 	get superTypes(): Type[] {
 		if (!this.lib) {
 			return []
@@ -316,6 +328,7 @@ export class Type extends BaseType {
 	/**
 	 * Get all super types for this type
 	 */
+	@memoize()
 	get allSuperTypes(): Type[] {
 		const list = new Map<string, Type>()
 
@@ -336,6 +349,7 @@ export class Type extends BaseType {
 	/**
 	 * Get the direct sub types for this type
 	 */
+	@memoize()
 	get subtypes(): Type[] {
 		const list = new Map<string, Type>()
 
@@ -351,6 +365,7 @@ export class Type extends BaseType {
 	/**
 	 * Get all sub types for this type
 	 */
+	@memoize()
 	get allSubtypes(): Type[] {
 		const list = new Map<string, Type>()
 

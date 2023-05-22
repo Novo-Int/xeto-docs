@@ -6,8 +6,8 @@
 		"lint": "eslint --ext .ts .",
 		"format": "prettier-eslint \"./**/*.ts\" --write",
 		"test": "jest",
-		"gen": "ts-node ./src/main.ts -a ./test_data/onicon.json -t ./pages",
-		"clean": "rimraf ./dist && rimraf ./build && rimraf ./.next && rimraf ./pages/",
+		"gen": "ts-node ./src/main.ts ph.points -a ./test_data/onicon.json -t ./pages",
+		"clean": "rimraf ./out && rimraf ./build && rimraf ./.next && rimraf ./pages/equips && rimraf ./pages/points && rimraf ./pages/specs",
 		"build": "cross-env NODE_OPTIONS=--max-old-space-size=6000 next build",
 		"start": "serve out",
 		"dev": "next"

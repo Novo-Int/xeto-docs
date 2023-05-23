@@ -1,19 +1,30 @@
+import classes from '@/styles/Lib.module.css'
+
+<div className='flex items-center'>
+
 # <%= it.name %>
+
+<span className='ml-2 mt-2 tracking-wider border border-blue-600 nx-bg-primary-100 nx-text-primary-600 font-mono font-semibold text-sm px-3 py-1 rounded-md'><%= it.version %></span>
+</div>
+
+<p className='text-3xl border-t font-bold mt-2 pt-2'><a href='<%= it.org.uri %>' className='text-gray-500 hover:text-gray-700 hover:underline'> <%= it.org.dis %> </a> </p>
+
 
 <%= it.doc %>
 
-## Version
-<%= it.version %>
-
-## Depends
+|Dependency|Version|
+|---|---|
 <% it.depends?.forEach((type) => { %>
-- [<%= type.name %>](./<%= type.link %>)
+|<%= type.name %>|[<%= type.version || '--' %>](./<%= type.link %>)|
 
 <% }) %>
 
 ## Types
 
+<div className={classes.typeList}>
+
 <% it.types.forEach((type) => { %>
 - [<%= type.typename %>](./<%= type.link %>)
-
 <% }) %>
+
+</div>

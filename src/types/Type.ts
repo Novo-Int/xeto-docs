@@ -160,6 +160,13 @@ export class Type extends BaseType {
 		return res
 	}
 
+	get selfMarkers(): string[] {
+		const markers = this.markers
+		const inherited = this.inheritedMarkers
+
+		return markers.filter((m) => !inherited.find((v) => v.name === m))
+	}
+
 	/**
 	 * Get the markers for this type and all super types
 	 */
@@ -168,11 +175,28 @@ export class Type extends BaseType {
 		const res = new Set<string>()
 		this.markers.forEach((m) => res.add(m))
 
-		this.allSuperTypes.forEach((type) => {
-			type.markers.forEach((m) => res.add(m))
-		})
+		this.inheritedMarkers.forEach((m) => res.add(m.name))
 
 		return [...res]
+	}
+
+	/**
+	 * Get the markers tgar are inherited from super types. This will return the
+	 * marker name and the type that it was inherited from
+	 */
+	get inheritedMarkers(): { name: string; type: string }[] {
+		const res = [] as { name: string; type: string }[]
+		const added = [] as string[]
+		this.allSuperTypes.reverse().forEach((su) => {
+			Object.entries(su.slots).forEach(([name, type]) => {
+				if (type.type === 'sys::Marker' && !added.includes(name)) {
+					res.push({ name, type: su.typename })
+					added.push(name)
+				}
+			})
+		})
+
+		return res.reverse()
 	}
 
 	get nonSpecialSlots(): Record<string, Type> {

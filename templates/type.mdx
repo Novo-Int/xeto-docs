@@ -11,16 +11,28 @@ import classes from '@/styles/Type.module.css'
 <% }) %>
 <% } %>
 
+<div className={`${classes.diagramContainer} nx-bg-primary-700/5 dark:nx-bg-primary-300/10`}>
+	<div className='text-xs px-4 py-2 font-semibold nx-bg-primary-700/5 nx-text-gray-700 dark:nx-bg-primary-300/10 dark:nx-text-gray-200 nx-rounded-t-xl'>
+	Entity Hierachy
+	</div>
+
+```mermaid
+graph LR;
+<%~ it.utils.typeHierarchyDiagram(it.type) %>
+```
+
+</div>
+
 <%= it.utils.docWithFixedLinks(it.type.doc) %>
 
 <% if (it.type.markers.length) { %>
 <div className={classes.slotHeader}>
 ## Markers
-	<% if (it.type.allMarkers.length > 0) { %>
+	<% if (it.type.inheritedMarkers.length > 0) { %>
 	<div className="nx-font-semibold nx-tracking-tight nx-text-slate-900 dark:nx-text-slate-100 nx-mt-10 nx-border-b nx-pb-1 nx-text-3xl nx-border-neutral-200/70 contrast-more:nx-border-neutral-400 dark:nx-border-primary-100/10 contrast-more:dark:nx-border-neutral-400 flex items-end">
 		<div className='flex items-center'>
 			<span className="text-sm mr-2">Toggle Inherited</span>
-			<Toggle onChange={(val => {
+			<Toggle initialValue={true} onChange={(val => {
 				document.querySelectorAll('.mark_inherited').forEach((el) => {
 					el.classList.toggle('hidden', !val)
 				})
@@ -31,21 +43,21 @@ import classes from '@/styles/Type.module.css'
 </div>
 <table className='marker_table'>
 	<tbody>
-	<% it.type.markers.forEach((m) => { %>
+	<% it.type.selfMarkers.forEach((m) => { %>
 		<tr>
 			<td className="p-2 align-top">
-				<span className="nx-bg-primary-100 rounded-md px-3 py-1 nx-text-primary-800 w-full inline-block font-semibold text-center text-sm"><%= m %></span>
+				<span className="nx-bg-primary-100 dark:nx-bg-primary-400/10 rounded-md px-3 py-1 nx-text-primary-800 dark:nx-text-primary-600 w-full inline-block font-semibold text-center text-sm"><%= m %></span>
 			</td>
 			<td className="p-2 align-top"><%~ it.utils.docWithFixedLinks(it.hsDocs.get(m)) %></td>
 		</tr>
 	<% }) %>
-	<% if (it.type.allMarkers.length) { %>
-	<% it.type.allMarkers.forEach((m) => { %>
-		<tr className='mark_inherited hidden'>
+	<% if (it.type.inheritedMarkers.length) { %>
+	<% it.type.inheritedMarkers.forEach(({name, type}) => { %>
+		<tr className='mark_inherited'>
 			<td className="p-2 align-top">
-				<span className="border nx-border-primary-100 rounded-md px-3 py-1 w-full inline-block font-semibold text-center text-sm"><%= m %></span>
+				<span className="border nx-border-primary-100 dark:nx-border-primary-800 rounded-md px-3 py-1 w-full inline-block font-semibold text-center text-sm"><%= name %></span>
 			</td>
-			<td className="p-2 align-top"><span className="nx-bg-primary-100 rounded-md px-3 py-1 nx-text-primary-800 font-semibold text-center text-sm whitespace-nowrap mr-2 inline-block">&larr; <%= m.type %></span><%~ it.utils.docWithFixedLinks(it.hsDocs.get(m.name)) %></td>
+			<td className="p-2 align-top"><span className="nx-bg-primary-100 dark:nx-border-primary-400/10 rounded-md px-3 py-1 nx-text-primary-800 dark:nx-text-primary-600 font-semibold text-center text-sm whitespace-nowrap mr-2 inline-block">&larr; <%= type %></span><%= it.utils.docWithFixedLinks(it.hsDocs.get(name)) %></td>
 		</tr>
 	<% }) %>
 	<%} %>
@@ -55,8 +67,10 @@ import classes from '@/styles/Type.module.css'
 
 <% if (it.utils.hasSummary(it.summary)) { %>
 <div className={`${classes.summaryBox} flex flex-col bg-emerald-700/5 dark:nx-bg-primary-300/10 nx-rounded-xl mt-10`}>
-	<div className='text-sm px-4 py-2 font-semibold bg-emerald-700/5 rounded-t-xl text-emerald-800/70'>
+	<div className='flex text-sm px-4 py-2 font-semibold bg-emerald-700/5 rounded-t-xl text-emerald-800/70'>
 	## Point Summary
+
+	<span className='flex-auto text-right font-mono'><%= new Intl.NumberFormat('en-US', {minimumIntegerDigits: 2}).format(Object.values(it.summary.points || {}).reduce((a, v) => (a + Object.values(v || {}).reduce((aa, cc) => aa + Object.keys(cc).length, 0)), 0)) %></span>
 	</div>
 
 	<ul className='px-4 py-2 flex flex-col gap-6 pb-4'>
@@ -86,7 +100,7 @@ import classes from '@/styles/Type.module.css'
 		<div className="nx-font-semibold nx-tracking-tight nx-text-slate-900 dark:nx-text-slate-100 nx-mt-10 nx-border-b nx-pb-1 nx-text-3xl nx-border-neutral-200/70 contrast-more:nx-border-neutral-400 dark:nx-border-primary-100/10 contrast-more:dark:nx-border-neutral-400 flex items-end">
 			<div className='flex items-center'>
 				<span className="text-sm mr-2">Toggle Inherited</span>
-				<Toggle onChange={(val => {
+				<Toggle initialValue={true} onChange={(val => {
 					document.querySelectorAll('.slot_inherited').forEach((el) => {
 						el.classList.toggle('hidden', !val)
 					})
@@ -117,8 +131,8 @@ import classes from '@/styles/Type.module.css'
 
 <% if (Object.keys(it.type.inheritedNonSpecialSlots).length) { %>
 	<% Object.entries(it.type.inheritedNonSpecialSlots).forEach(([name, type]) => { %>
-	<div className='slot_inherited hidden'>
-		<div className={classnames(classes.slot, 'mark_inherited hidden')} data-slot='<%= type.typename %>'>
+	<div className='slot_inherited'>
+		<div className={classnames(classes.slot, 'mark_inherited')} data-slot='<%= type.typename %>'>
 			### <%= name %>
 		</div>
 		<%= it.utils.docWithFixedLinks(type.doc) %>
@@ -174,14 +188,14 @@ import classes from '@/styles/Type.module.css'
 
 <% } %>
 
-<% if (it.type.groupedResources.get('Video')?.size > 0) { %>
+<% if (it.type.groupedResources.get('Video')?.length > 0) { %>
 
 ## Videos
 
 
-<div className='grid grid-cols-3 gap-4'>
+<div className='grid grid-cols-2 gap-4'>
 	<% it.type.groupedResources.get('Video').forEach((v) => { %>
-		<video height="300" controls src="<%= v.uri %>" />
+		<iframe height='350' width='100%' src='<%~ it.utils.fixVideoLink(v.uri) %>' frameborder='0' allowFullScreen />
 	<% }) %>
 </div>
 

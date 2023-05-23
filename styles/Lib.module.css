@@ -1,0 +1,11 @@
+.typeList {
+	@apply pt-4;
+}
+
+.typeList ul {
+	@apply grid grid-cols-3 gap-x-6 gap-y-1;
+}
+
+.typeList ul li {
+	@apply m-0;
+}

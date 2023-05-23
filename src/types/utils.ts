@@ -36,10 +36,10 @@ export function typeHierarchyDiagram(t: Type): string {
 	}
 
 	const genItem = (name: string) => {
-		return `${name.toLowerCase()}[<span>${name}<span>]`
+		return `${name.toLowerCase()}([${name}])`
 	}
 
-	const relationType = t.base === 'sys::Or' ? '-..->' : '---->'
+	const relationType = t.base === 'sys::Or' ? '-.->' : '--->'
 	const diag = t.superTypes.reduce((acc, it) => {
 		return `\t${acc}${relationType}${genItem(
 			it.typename
@@ -49,14 +49,15 @@ export function typeHierarchyDiagram(t: Type): string {
 	return diag
 }
 
-// export function validGraph(t: Type): boolean {
-// 	const graph = typeHierarchyDiagram(t)
+export function fixVideoLink(link: string): string {
+	if (link.includes('youtube')) {
+		return link.replace('watch?v=', 'embed/')
+	} else if (link.includes('youtu.be')) {
+		return link.replace('youtu.be', 'youtube.com/embed/')
+	}
 
-// 	const isOk = mermaid.parse(graph)
-// 	console.log('error parsing graph for type:', t.typename)
-
-// 	return !!isOk
-// }
+	return link
+}
 
 export function hasSummary(summary: TypeSummary): boolean {
 	return (

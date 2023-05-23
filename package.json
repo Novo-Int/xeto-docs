@@ -6,9 +6,10 @@
 		"lint": "eslint --ext .ts .",
 		"format": "prettier-eslint \"./**/*.ts\" --write",
 		"test": "jest",
-		"gen": "ts-node ./src/main.ts ph.points -a ./test_data/onicon.json -t ./pages",
-		"clean": "rimraf ./out && rimraf ./build && rimraf ./.next && rimraf ./pages/equips && rimraf ./pages/points && rimraf ./pages/specs",
-		"build": "cross-env NODE_OPTIONS=--max-old-space-size=6000 next build",
+		"gen": "npm run clean:pages && ts-node ./src/main.ts ph -a ./test_data/onicon.json -t ./pages",
+		"clean": "rimraf ./dist && rimraf ./build && rimraf ./.next && npm run clean:pages",
+		"clean:pages": "rimraf -g \"./pages/!(_app.mdx|_meta.json|index.mdx)/**\"",
+		"build": "cross-env NODE_OPTIONS=--max-old-space-size=4000 next build",
 		"start": "serve out",
 		"dev": "next"
 	},
@@ -28,7 +29,8 @@
 		"nextra-theme-blog": "^2.4.2",
 		"nextra-theme-docs": "^2.4.2",
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"remark-mermaid-nextra": "^0.0.4"
 	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^24.1.0",

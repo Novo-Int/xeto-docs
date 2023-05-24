@@ -103,7 +103,7 @@ export const Toggle = ({
 			checked={enabled}
 			onChange={setEnabled}
 			className={classNames(
-				enabled ? bgColor : 'bg-gray-200',
+				enabled ? bgColor : 'bg-gray-200 dark:bg-gray-700',
 				'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out'
 			)}
 		>
@@ -123,7 +123,7 @@ export const Toggle = ({
 					aria-hidden="true"
 				>
 					<svg
-						className="h-3 w-3 text-gray-400"
+						className="h-3 w-3 text-gray-400 dark:text-gray-700"
 						fill="none"
 						viewBox="0 0 12 12"
 					>

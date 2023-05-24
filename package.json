@@ -6,7 +6,7 @@
 		"lint": "eslint --ext .ts .",
 		"format": "prettier-eslint \"./**/*.ts\" --write",
 		"test": "jest",
-		"gen": "npm run clean:pages && ts-node ./src/main.ts ph -a ./test_data/onicon.json -t ./pages",
+		"gen": "npm run clean:pages && ts-node ./src/main.ts ashrae.g36 -a ./test_data/onicon.json -t ./pages",
 		"clean": "rimraf ./dist && rimraf ./build && rimraf ./.next && npm run clean:pages",
 		"clean:pages": "rimraf -g \"./pages/!(_app.mdx|_meta.json|index.mdx)/**\"",
 		"build": "cross-env NODE_OPTIONS=--max-old-space-size=4000 next build",
@@ -17,7 +17,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"@headlessui/react": "^1.7.14",
-		"@tremor/react": "^2.6.2",
+		"@heroicons/react": "^2.0.18",
 		"classnames": "^2.3.2",
 		"commander": "^10.0.1",
 		"eta": "^2.0.1",

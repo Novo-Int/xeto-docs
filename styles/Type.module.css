@@ -27,10 +27,31 @@
 	@apply bg-gray-200 text-[0.6rem] uppercase font-extrabold tracking-wider rounded-md px-3 py-1 mr-2 border border-gray-400;
 }
 
+:is(html[class~='dark']) .slot::before {
+	@apply bg-gray-700 text-gray-400 border-gray-400;
+}
+
 .summaryBox h2 {
 	@apply mt-0 p-0 border-none;
 	font-size: inherit;
-	color: inherit;
+	color: inherit !important;
+}
+
+.summaryBox .const {
+	color: var(--shiki-token-constant);
+}
+
+.summaryBox .txt {
+	@apply text-xs;
+	color: var(--shiki-token-comment);
+}
+
+.summaryBox .func {
+	color: var(--shiki-token-function);
+}
+
+.summaryBox .keyword {
+	color: var(--shiki-token-keyword);
 }
 
 .diagramContainer {

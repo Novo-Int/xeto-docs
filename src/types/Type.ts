@@ -323,7 +323,6 @@ export class Type extends BaseType {
 	/**
 	 * Get the direct super types for this type
 	 */
-	@memoize()
 	get superTypes(): Type[] {
 		if (!this.lib) {
 			return []

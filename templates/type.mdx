@@ -7,7 +7,7 @@ import {ChevronDownIcon} from '@heroicons/react/24/outline'
 # <%= it.type.typename %>
 <% if (it.type.superTypes.length > 0) { %>
 &nbsp;&larr;&nbsp;<% it.type.superTypes.forEach((st, index) => { %>
-[<%= st.typename %>](../<%= st.link %>)<%= index === 0 && it.type.base === 'sys::And' || it.type.base === 'sys:Or' ? it.type.base === 'sys::And' ? ' & ' : ' | ' : '' %>
+[<%= st.typename %>](../<%= st.link %>)<%= index === 0 && (it.type.base === 'sys::And' || it.type.base === 'sys:Or') ? it.type.base === 'sys::And' ? ' & ' : ' | ' : '' %>
 <% }) %>
 <% } %>
 
@@ -17,8 +17,8 @@ import {ChevronDownIcon} from '@heroicons/react/24/outline'
 	</div>
 
 ```mermaid
-graph LR;
-<%= it.utils.typeHierarchyDiagram(it.type) %>
+graph LR
+<%~ it.utils.typeHierarchyDiagram(it.type) %>
 ```
 
 </div>

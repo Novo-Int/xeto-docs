@@ -39,11 +39,11 @@ export function typeHierarchyDiagram(t: Type): string {
 		return `${name.toLowerCase()}([${name}])`
 	}
 
-	const relationType = t.base === 'sys::Or' ? '-.->' : '--->'
+	const relationType = t.base === 'sys::Or' ? '-.>' : '-->'
 	const diag = t.superTypes.reduce((acc, it) => {
 		return `\t${acc}${relationType}${genItem(
 			it.typename
-		)};\n${typeHierarchyDiagram(it)}`
+		)}\n${typeHierarchyDiagram(it)}`
 	}, genItem(t.typename))
 
 	return diag
